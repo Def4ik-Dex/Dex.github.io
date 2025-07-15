@@ -4,7 +4,7 @@
 
 - **nickname**: Dex
 - **Опис**: Коротко про мене ("(не) мега пастер").
-- **Сторінка**: [Переглянути біо]()
+- **Сторінка**: [Переглянути біо](https://def4ik-dex.github.io/Dex.github.io/)
 
 ## Посилання
 - [YouTube](https://www.youtube.com/@Def-Dex)
