@@ -9,4 +9,4 @@
 ## Посилання
 - [YouTube](https://www.youtube.com/@Def-Dex)
 - [GitHub](https://github.com/Def4ik-Dex)
-(я робити не умію ще дороблю строго не судити)
+- (я робити не умію ще дороблю строго не судити)
