@@ -8,21 +8,26 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #1a1a1a;
-            color: white;
+            background: #f0f0f0;
+            color: #333;
             text-align: center;
             padding: 20px;
         }
         .container {
             max-width: 400px;
             margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         img {
             width: 100px;
             height: 100px;
-            border-radius: 50%;
-            border: 2px solid white;
+            border-radius: 50%; /* Робимо фото круглим */
+            border: 2px solid #333;
             margin-bottom: 15px;
+            object-fit: cover; /* Щоб фото не розтягувалося */
         }
         h1 {
             font-size: 22px;
@@ -30,20 +35,24 @@
         }
         p {
             font-size: 14px;
-            color: #ccc;
+            color: #666;
             margin-bottom: 20px;
         }
         .link-button {
             display: block;
-            background: #333;
-            color: white;
-            padding: 10px;
+            padding: 15px 20px; /* Збільшуємо висоту кнопок */
             margin: 10px 0;
             border-radius: 20px;
             text-decoration: none;
+            font-weight: bold;
+            color: white;
+            transition: opacity 0.3s ease;
         }
+        .link-button:nth-child(1) { background: #FF0000; } /* YouTube червоний */
+        .link-button:nth-child(2) { background: #0088cc; } /* Telegram синій */
+        .link-button:nth-child(3) { background: #333; } /* GitHub чорний */
         .link-button:hover {
-            background: #555;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -51,8 +60,9 @@
     <div class="container">
         <img src="photo.jpg" alt="Твоє фото">
         <h1>Dex</h1>
-        <p>My bio?</p>
+        <p>я недо ютубер</p>
         <a href="https://www.youtube.com/@Def-Dex" class="link-button">YouTube</a>
+        <a href="t.me/ParavozikDLC" class="link-button">Telegram</a>
         <a href="https://github.com/Def4ik-Dex" class="link-button">GitHub</a>
     </div>
 </body>
