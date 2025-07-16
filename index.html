@@ -1,59 +1,127 @@
-<!DOCTYPE html>
-<html lang="uk">
+<!DOCTYPE html><html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Біо Dex</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dex Bio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #eee;
+      scroll-behavior: smooth;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+    }
+    button, .shop-btn, .social-btn {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+      margin: 5px;
+    }
+    button:hover, .shop-btn:hover, .social-btn:hover {
+      background: #444;
+      transform: scale(1.05);
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    #counter {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 14px;
+      font-family: sans-serif;
+      color: #888;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    #copyright {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #888;
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+    .like-btn {
+      margin-top: 20px;
+      background: #00cc88;
+      color: white;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+  </style>
 </head>
-<body>
-  <!-- Перемикач теми -->
-  <div class="theme-toggle">
-    <input type="checkbox" id="themeSwitch" />
-    <label for="themeSwitch">Тема</label>
-  </div>
-
-  <div class="container">
-    <label for="upload" class="avatar-wrapper">
-      <img src="Dexav.png" alt="твоє фото" class="avatar" id="avatarImg" />
-      <input type="file" id="upload" accept="image/*" hidden />
-    </label>
-
-    <div class="nickname">Dex</div>
-
-    <a href="https://www.youtube.com/@Def-Dex" class="button youtube">ютуб</a>
-    <a href="https://t.me/ParavozikDLC" class="button telegram">тг</a>
-    <a href="https://github.com/Def4ik-Dex" class="button github">гітхаб</a>
-<a href="https://funpay.com/uk/users/13700115/" class="button fanpay">фп</a>
-
-    <div class="footer">Промене:</div>
-  </div>
-
-  <script src="script.js"></script>
-<!-- 👁 Лічильник у правому нижньому куті -->
-<div id="counter"
-     style="position: fixed; bottom: 10px; right: 10px; color: #888; font-size: 14px; font-family: sans-serif;">
-  👁 0
+<body>  <header>
+    <img src="Dexav.png" alt="Dex Avatar" class="avatar">
+    <h1>👋 Привіт, я Dex</h1>
+    <div>
+      <a href="https://t.me/ParavozikDLC" class="social-btn">Telegram</a>
+      <a href="https://github.com/def4ik-dex" class="social-btn">GitHub</a>
+      <a href="https://www.youtube.com/@def4ik" class="social-btn">YouTube</a>
+      <a href="https://funpay.com/uk/users/13700115/" class="social-btn" target="_blank">FanPay</a>
+    </div>
+    <button onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
+      🛒 Магазин
+    </button>
+  </header>  <section>
+    <h2>Про мене</h2>
+    <p>Це мій GitHub Bio-сайт з анімаціями, статистикою та магазином!</p>
+  </section>  <!-- Магазин -->  <section id="shop">
+    <h2>❄️ Зимні шейдери для Minecraft 1.16.5</h2>
+    <img src="shaders.png" alt="Зимні шейдери" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-bottom: 20px;">
+    <br>
+    <a href="files/shaders.zip" download style="
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 16px;
+      background: linear-gradient(135deg, #00c3ff, #0077ff);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      ⬇️ Скачати
+    </a><div>
+  <button class="like-btn" onclick="likeShader()">❤️ Лайк <span id="likes">0</span></button>
 </div>
 
-<!-- © Dex 2025 -->
-<div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
-            color: #888; font-size: 14px; font-family: sans-serif;">
-  © Dex 2025. Всі права захищені.
-</div>
+  </section>  <!-- Лічильник переглядів -->  <div id="counter">👁 0</div>  <!-- Права -->  <div id="copyright">
+    © Dex 2025. Всі права захищені.
+  </div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <!-- JS: показати перегляди -->  <script>
+    fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
+      .then(response => response.json())
+      .then(data => {
+        const el = document.getElementById('counter');
+        el.textContent = `👁 ${data.totals.views}`;
+        el.style.opacity = 1;
+      })
+      .catch(() => {});
+  </script>  <!-- JS: лайки (зберігаються у браузері) -->  <script>
+    const likeKey = 'dex_shader_likes';
+    let likes = localStorage.getItem(likeKey) || 0;
+    document.getElementById('likes').textContent = likes;
 
-<!-- GoatCounter: код відстеження -->
-<script data-goatcounter="https://dexbio.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
-<!-- JS: Отримати загальну кількість всіх переглядів -->
-<script>
-  fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('counter').textContent = `👁 ${data.totals.views}`;
-    })
-    .catch(() => {});
-</script>
-</body>
+    function likeShader() {
+      likes++;
+      localStorage.setItem(likeKey, likes);
+      document.getElementById('likes').textContent = likes;
+    }
+  </script></body>
 </html>
