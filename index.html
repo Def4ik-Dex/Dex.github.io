@@ -197,7 +197,7 @@
     <img src="Dexav.png" alt="Dex Avatar" class="avatar">
     <div class="about-box">
       <h1>👋 Привіт, я Dex</h1>
-      <p>Це мій GitHub Bio-сайт з магазином, тут ти знаєш много чого!</p>
+      <p>Це мій GitHub Bio-сайт з магазином, статистикою та стилем!</p>
     </div>
     <div class="social-buttons">
       <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank">Telegram</a>
@@ -208,7 +208,12 @@
     <button class="btn-shop" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
       🛒 Магазин
     </button>
-  </header>  <div class="divider"></div>  <section id="shop" class="shop-section">
+  </header>  <div style="text-align:center; margin-top:20px;">
+    <button onclick="toggleMusic()" class="btn-shop">🎵 Музика</button>
+    <div id="spotify-player" style="display:none; margin-top:15px;">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>  <div class="divider"></div>  <section id="shop" class="shop-section">
     <h2>🛒 Магазин</h2><h3>❄️ Зимні шейдери для Minecraft 1.16.5</h3>
 <img src="shaders.png" alt="Зимні шейдери">
 <div class="download-like">
@@ -246,6 +251,11 @@
 
     function toggleTheme() {
       document.body.classList.toggle('light');
+    }
+
+    function toggleMusic() {
+      const player = document.getElementById('spotify-player');
+      player.style.display = player.style.display === 'none' ? 'block' : 'none';
     }
 
     // Підпис
