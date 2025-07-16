@@ -11,32 +11,29 @@
       background: #111;
       color: #eee;
       scroll-behavior: smooth;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-    body.light {
-      background: #f5f5f5;
-      color: #111;
     }
     header {
       padding: 20px;
       text-align: center;
     }
-    button, .shop-btn, .social-btn {
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      color: white;
+    button, .social-btn {
       border: none;
       padding: 10px 20px;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
+      transition: transform 0.2s ease;
       margin: 5px;
     }
-    button:hover, .shop-btn:hover, .social-btn:hover {
+    button:hover, .social-btn:hover {
       transform: scale(1.05);
     }
+    .social-btn.telegram { background-color: #0088cc; color: white; }
+    .social-btn.github { background-color: #333; color: white; }
+    .social-btn.youtube { background-color: #ff0000; color: white; }
+    .social-btn.fanpay { background-color: #0077ff; color: white; }
     section {
-      padding: 60px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
     #counter {
@@ -58,11 +55,6 @@
       font-size: 14px;
       font-family: sans-serif;
     }
-    .like-btn {
-      background: #8e44ad;
-      color: white;
-      margin-left: 10px;
-    }
     .avatar {
       width: 120px;
       height: 120px;
@@ -71,20 +63,20 @@
       margin-bottom: 20px;
       box-shadow: 0 0 10px rgba(255,255,255,0.2);
     }
-    .divider {
-      height: 4px;
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
-      margin: 40px auto;
-      width: 80%;
-      border-radius: 2px;
+    .shop-section img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
     }
-    .download-like {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
+    .like-btn {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-left: 10px;
     }
   </style>
 </head>
@@ -92,39 +84,36 @@
     <img src="Dexav.png" alt="Dex Avatar" class="avatar">
     <h1>👋 Привіт, я Dex</h1>
     <div>
-      <a href="https://t.me/ParavozikDLC" class="social-btn" target="_blank">Telegram</a>
-      <a href="https://github.com/def4ik-dex" class="social-btn" target="_blank">GitHub</a>
-      <a href="https://www.youtube.com/@def4ik" class="social-btn" target="_blank">YouTube</a>
-      <a href="https://funpay.com/uk/users/13700115/" class="social-btn" target="_blank">FanPay</a>
+      <a href="https://t.me/ParavozikDLC" class="social-btn telegram" target="_blank">Telegram</a>
+      <a href="https://github.com/def4ik-dex" class="social-btn github" target="_blank">GitHub</a>
+      <a href="https://www.youtube.com/@def4ik" class="social-btn youtube" target="_blank">YouTube</a>
+      <a href="https://funpay.com/uk/users/13700115/" class="social-btn fanpay" target="_blank">FanPay</a>
     </div>
     <button onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
       🛒 Магазин
     </button>
-    <button onclick="toggleTheme()">🌓 Тема</button>
   </header>  <section>
     <h2>Про мене</h2>
-    <p>Це мій GitHub Bio-сайт з анімаціями, статистикою та магазином!</p>
-  </section>  <div class="divider"></div>  <!-- Магазин -->  <section id="shop">
+    <p>Це мій GitHub Bio-сайт з магазином, статистикою та стилем!</p>
+  </section>  <!-- Магазин -->  <section id="shop" class="shop-section">
     <h2>❄️ Зимні шейдери для Minecraft 1.16.5</h2>
-    <img src="shaders.png" alt="Зимні шейдери" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"><div class="download-like">
-  <a href="files/shaders.zip" download style="
-    display: inline-block;
-    padding: 12px 24px;
-    font-size: 16px;
-    background: linear-gradient(135deg, #8e2de2, #4a00e0);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s;
-  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    ⬇️ Скачати
-  </a>
-  <button class="like-btn" onclick="likeShader()">❤️ Лайк <span id="likes">0</span></button>
-</div>
-
+    <img src="shaders.png" alt="Зимні шейдери">
+    <div>
+      <a href="files/shaders.zip" download style="
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 16px;
+        background: purple;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;">
+        ⬇️ Скачати
+      </a>
+      <button class="like-btn" onclick="toggleLike()">❤️ <span id="likes">0</span></button>
+    </div>
   </section>  <!-- Лічильник переглядів -->  <div id="counter">👁 0</div>  <!-- Права -->  <div id="copyright">
     © Dex 2025. Всі права захищені.
-  </div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <script src="script.js"></script>  <!-- JS: показати перегляди -->  <script>
+  </div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <!-- JS: показати перегляди -->  <script>
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
       .then(response => response.json())
       .then(data => {
@@ -133,19 +122,17 @@
         el.style.opacity = 1;
       })
       .catch(() => {});
-  </script>  <!-- JS: лайки (зберігаються у браузері) -->  <script>
-    const likeKey = 'dex_shader_likes';
-    let likes = localStorage.getItem(likeKey) || 0;
+  </script>  <!-- JS: Лайк з toggle -->  <script>
+    const likeKey = 'dex_shader_like';
+    let liked = localStorage.getItem(likeKey) === '1';
+    let likes = liked ? 1 : 0;
     document.getElementById('likes').textContent = likes;
 
-    function likeShader() {
-      likes++;
-      localStorage.setItem(likeKey, likes);
+    function toggleLike() {
+      liked = !liked;
+      likes = liked ? 1 : 0;
+      localStorage.setItem(likeKey, liked ? '1' : '0');
       document.getElementById('likes').textContent = likes;
-    }
-  </script>  <!-- JS: перемикання теми -->  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('light');
     }
   </script></body>
 </html>
