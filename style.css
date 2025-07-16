@@ -124,3 +124,8 @@ body {
   font-size: 14px;
   color: #aaa;
 }
+
+.fanpay {
+  background-color: #007BFF; /* синій */
+  color: white;
+}
