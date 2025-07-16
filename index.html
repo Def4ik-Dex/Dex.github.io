@@ -229,7 +229,7 @@
     <div id="spotify-player">
       <iframe
         style="border-radius:12px"
-        src="https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0"
+        src="https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0"
         width="100%"
         height="80"
         frameBorder="0"
@@ -299,15 +299,11 @@
         player.style.display = 'block';
         setTimeout(() => {
           player.classList.add('show');
-          player.scrollIntoView({ behavior: 'smooth' });
         }, 10);
       }
     }
 
-    // Підпис
     console.log("Сайт створено Dex © 2025 — github.com/def4ik-dex");
-
-    // Прихований підпис
     Object.defineProperty(window, 'dexSignature', {
       value: 'Created by Dex © 2025',
       writable: false,
