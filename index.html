@@ -1,77 +1,23 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Біо Dex</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #2c2c2c;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-        h1 {
-            font-size: 24px;
-            margin: 10px 0;
-            text-shadow: 1px 1px 3px #000;
-        }
-        p {
-            font-size: 16px;
-            color: #ccc;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px #000;
-        }
-        .link-button {
-            display: block;
-            width: 80%;
-            margin: 10px auto;
-            padding: 15px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        .link-button:nth-child(1) { background: #ff0000; } /* Червона для "Котуб" */
-        .link-button:nth-child(2) { background: #0088cc; } /* Синя для "ТГ" */
-        .link-button:nth-child(3) { background: #666; } /* Сіра для "Гитхаб" */
-        .link-button:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub БІО</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <img src="photo.jpg" alt="Моє фото">
-        <h1>Dex</h1>
-        <p>Промене:</p>
-        <a href="https://www.youtube.com/@Def-Dex" class="link-button">Котуб</a>
-        <a href="t.me/ParavozikDLC" class="link-button">ТГ</a>
-        <a href="https://github.com/Def4ik-Dex" class="link-button">Гитхаб</a>
+  <div class="container">
+    <div class="avatar"></div>
+    <div class="nickname">Dex</div>
+
+    <a href="https://www.youtube.com/@Def-Dex" class="button youtube">ютуб</a>
+    <a href="t.me/ParavozikDLC" class="button telegram">тг</a>
+    <a href="https://github.com" class="button github">гітхаб</a>
+
+    <div class="footer">
+      Промене:
     </div>
+  </div>
 </body>
 </html>
