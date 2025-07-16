@@ -243,19 +243,20 @@
       const liked = localStorage.getItem(`dex_like_${id}`) === '1';
       document.getElementById(`likes-${id}`).textContent = liked ? 1 : 0;
     });
-  </script>  <script>
+
     function toggleTheme() {
       document.body.classList.toggle('light');
     }
 
     // Підпис
     console.log("Сайт створено Dex © 2025 — github.com/def4ik-dex");
-  </script><script>
-  Object.defineProperty(window, 'dexSignature', {
-    value: 'Created by Dex © 2025',
-    writable: false,
-    configurable: false,
-    enumerable: false
-  });
-</script></body>
+
+    // Прихований підпис
+    Object.defineProperty(window, 'dexSignature', {
+      value: 'Created by Dex © 2025',
+      writable: false,
+      configurable: false,
+      enumerable: false
+    });
+  </script></body>
 </html>
