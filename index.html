@@ -30,5 +30,32 @@
   </div>
 
   <script src="script.js"></script>
+<!-- Лічильник переглядів у правому нижньому куті -->
+<div id="counter"
+     style="position: fixed; bottom: 10px; right: 10px; color: #888; font-size: 14px; font-family: sans-serif;">
+  👁 0
+</div>
+
+<!-- Підпис © Dex -->
+<div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+            color: #888; font-size: 14px; font-family: sans-serif;">
+  © Dex 2025. Всі права захищені.
+</div>
+
+<!-- GoatCounter: код відстеження -->
+<script data-goatcounter="https://dexbio.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+<!-- JS для показу кількості переглядів -->
+<script>
+  fetch('https://dexbio.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (data && data.count) {
+        document.getElementById('counter').textContent = `👁 ${data.count}`;
+      }
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>
