@@ -4,13 +4,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dex Bio</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
   <style>
     :root {
       --main-bg: #111;
       --main-color: #eee;
       --accent: #8e2de2;
       --tg-color: #33ccff;
+      --fanpay-color: #0077ff;
     }
     body {
       margin: 0;
@@ -34,6 +34,7 @@
       padding: 6px 12px;
       border-radius: 8px;
       cursor: pointer;
+      z-index: 100;
     }
     header {
       padding: 30px 20px 10px;
@@ -47,113 +48,141 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
     .about-box {
-      max-width: 500px;
+      max-width: 480px;
       margin: 30px auto;
-      padding: 20px;
-      border-radius: 12px;
-      background: linear-gradient(90deg, #444 0%, transparent 100%);
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      padding: 25px;
+      background-color: #222;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    }
+    .social-buttons {
+      margin: 20px 0;
     }
     .social-buttons a {
       display: inline-block;
-      margin: 5px;
-      padding: 10px 16px;
-      border-radius: 8px;
+      margin: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
       text-decoration: none;
       font-size: 16px;
-      color: white;
-      background: #555;
-      transition: background 0.3s, transform 0.2s;
+      font-weight: bold;
+      color: #fff;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-buttons a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      transition: left 0.5s;
+    }
+    .social-buttons a:hover::before {
+      left: 100%;
     }
     .social-buttons a:hover {
-      background: linear-gradient(45deg, #8e2de2, #4a00e0);
       transform: scale(1.05);
     }
-    .telegram { background-color: var(--tg-color) !important; color: #fff; }
+    .telegram { background-color: var(--tg-color); }
     .github { background-color: #333; }
-    .youtube { background-color: #ff0000; }
-    .fanpay { background-color: #0077ff; }
-    .btn-shop {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .btn-shop:hover {
-      background: linear-gradient(45deg, #8e2de2, #4a00e0);
-    }
-    .divider {
-      width: 80%;
-      height: 3px;
-      background: var(--accent);
-      margin: 50px auto;
-      border-radius: 3px;
-    }
-    .shop-section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .shop-section img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
-    }
-    .download-like {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .download-like a {
-      background: purple;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    .download-like a:hover {
-      background: #a020f0;
-    }
-    .like-btn {
-      background: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #counter {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 14px;
-      font-family: sans-serif;
-      color: #888;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    #copyright {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #888;
-      font-size: 14px;
-    }
+    .youtube { background-color: red; }
+    .fanpay { background-color: var(--fanpay-color); }.btn-shop {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-shop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+  transition: left 0.5s;
+}
+.btn-shop:hover::before {
+  left: 100%;
+}
+
+.divider {
+  width: 80%;
+  height: 3px;
+  background: var(--accent);
+  margin: 50px auto;
+  border-radius: 3px;
+}
+.shop-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+.shop-section img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+.download-like {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.download-like a {
+  background: purple;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+.download-like a:hover {
+  background: #a020f0;
+}
+.like-btn {
+  background: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#counter {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #888;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#copyright {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 13px;
+  color: #888;
+}
+
   </style>
 </head>
-<body><button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-
-  <header>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>  <header>
     <img src="Dexav.png" alt="Dex Avatar" class="avatar">
     <div class="about-box">
       <h1>👋 Привіт, я Dex</h1>
@@ -162,7 +191,7 @@
     <div class="social-buttons">
       <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank">Telegram</a>
       <a href="https://github.com/def4ik-dex" class="github" target="_blank">GitHub</a>
-      <a href="https://www.youtube.com/@Def-Dex" class="youtube" target="_blank">YouTube</a>
+      <a href="https://www.youtube.com/@def4ik" class="youtube" target="_blank">YouTube</a>
       <a href="https://funpay.com/uk/users/13700115/" class="fanpay" target="_blank">FanPay</a>
     </div>
     <button class="btn-shop" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
@@ -177,7 +206,7 @@
       <button class="like-btn" onclick="toggleLike()">❤️ <span id="likes">0</span></button>
     </div>
   </section>  <div id="counter">👁 0</div>
-  <div id="copyright">© Dex 2025. Всі права захищені.</div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <!-- Перегляди -->  <script>
+  <div id="copyright">© Dex 2025. Всі права захищені.</div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <!-- Лічильник -->  <script>
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
       .then(res => res.json())
       .then(data => {
