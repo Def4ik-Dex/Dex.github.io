@@ -4,9 +4,7 @@
   github.com/def4ik-dex
   Дизайн можна надихатись, але не копіювати 1-в-1
   © Dex 2025. Всі права захищені.
--->
-<!DOCTYPE html>
-<html lang="uk">
+--><!DOCTYPE html><html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -104,139 +102,137 @@
     .telegram { background-color: var(--tg-color); }
     .github { background-color: #333; }
     .youtube { background-color: red; }
-    .fanpay { background-color: var(--fanpay-color); }
+    .fanpay { background-color: var(--fanpay-color); }.btn-shop {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-shop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+  transition: left 0.5s;
+}
+.btn-shop:hover::before {
+  left: 100%;
+}
 
-    .btn-shop {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-shop::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 200%;
-      height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
-      transition: left 0.5s;
-    }
-    .btn-shop:hover::before {
-      left: 100%;
-    }
+.track-btn {
+  border-radius: 50px;
+  padding: 10px 24px;
+  margin-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding-left: 36px;
+}
+.track-btn::before {
+  content: "→";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 18px;
+}
+.track-btn:hover {
+  background-color: #a020f0;
+  transform: scale(1.05);
+}
 
-    /* Кнопки перемикання треків круглі зі стрілками */
-    .track-btn {
-      border-radius: 50px; /* круглі */
-      padding: 10px 24px;
-      margin-right: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      transition: background 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      padding-left: 36px; /* місце для стрілки */
-    }
-    .track-btn::before {
-      content: "→";
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-weight: bold;
-      font-size: 18px;
-    }
-    .track-btn:hover {
-      background-color: #a020f0;
-      transform: scale(1.05);
-    }
+.btn-active {
+  background-color: #a020f0 !important;
+}
 
-    .btn-active {
-      background-color: #a020f0 !important;
-    }
+#spotify-player {
+  display: none;
+  margin-top: 15px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#spotify-player.show {
+  display: block;
+  opacity: 1;
+}
 
-    #spotify-player {
-      display: none;
-      margin-top: 15px;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    #spotify-player.show {
-      display: block;
-      opacity: 1;
-    }
+.divider {
+  width: 80%;
+  height: 3px;
+  background: var(--accent);
+  margin: 50px auto;
+  border-radius: 3px;
+}
+.shop-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+.shop-section img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+.download-like {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.download-like a, .download-like button {
+  background: purple;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.download-like a:hover, .download-like button:hover {
+  background: #a020f0;
+}
+.like-btn {
+  background: #ff69b4;
+}
+#counter {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #888;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 8px;
+  z-index: 100;
+}
+#copyright {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 13px;
+  color: #888;
+}
 
-    .divider {
-      width: 80%;
-      height: 3px;
-      background: var(--accent);
-      margin: 50px auto;
-      border-radius: 3px;
-    }
-    .shop-section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .shop-section img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
-    }
-    .download-like {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .download-like a, .download-like button {
-      background: purple;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .download-like a:hover, .download-like button:hover {
-      background: #a020f0;
-    }
-    .like-btn {
-      background: #ff69b4;
-    }
-    #counter {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 14px;
-      font-family: sans-serif;
-      color: #888;
-      background: rgba(0,0,0,0.5);
-      padding: 5px 10px;
-      border-radius: 8px;
-      z-index: 100;
-    }
-    #copyright {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      font-size: 13px;
-      color: #888;
-    }
   </style>
 </head>
 <body>
@@ -259,7 +255,6 @@
   </header>
   <div style="text-align:center; margin-top:20px;">
     <button onclick="toggleMusic()" class="btn-shop">Музика</button>
-
     <div id="spotify-player">
       <div style="margin-bottom:10px;">
         <button onclick="switchTrack(1)" id="btn-track-1" class="track-btn btn-active">Трек 1</button>
@@ -277,9 +272,7 @@
         loading="lazy"
       ></iframe>
     </div>
-  </div>
-
-  <div class="divider"></div>
+  </div>  <div class="divider"></div>
   <section id="shop" class="shop-section">
     <h2>🛒 Магазин</h2>
     <h3>❄️ Зимні шейдери для Minecraft 1.16.5</h3>
@@ -287,22 +280,14 @@
     <div class="download-like">
       <a href="files/shaders.zip" download>⬇️ Скачати</a>
       <button class="like-btn" onclick="toggleLike('shader')">❤️ <span id="likes-shader">0</span></button>
-    </div>
+    </div><h3>⚙️ Налаштування Minecraft</h3>
+<div class="download-like">
+  <a href="files/nast.zip" download>⬇️ Скачати</a>
+  <button class="like-btn" onclick="toggleLike('nast')">❤️ <span id="likes-nast">0</span></button>
+</div>
 
-    <h3>⚙️ Налаштування Minecraft</h3>
-    <div class="download-like">
-      <a href="files/nast.zip" download>⬇️ Скачати</a>
-      <button class="like-btn" onclick="toggleLike('nast')">❤️ <span id="likes-nast">0</span></button>
-    </div>
-  </section>
-
-  <div id="counter">👁 0</div>
-  <div id="copyright">© Dex 2025. Всі права захищені.</div>
-
-  <!-- GoatCounter -->
-  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
-  <script>
+  </section>  <div id="counter">👁 0</div>
+  <div id="copyright">© Dex 2025. Всі права захищені.</div>  <!-- GoatCounter -->  <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>  <script>
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
       .then((res) => res.json())
       .then((data) => {
@@ -348,7 +333,12 @@
       }
     }
 
-    console.log('Сайт створено Dex © 2025 — github.com/def4ik-dex');
-  </script>
-</body>
+    console.log("Caйт ствopeнO Dex © 2025 - github.com/def4ik-dex");
+    Object.defineProperty(window, 'dexSignature', {
+      value: 'Created by Dex © 2025',
+      writable: false,
+      configurable: false,
+      enumerable: false
+    });
+  </script></body>
 </html>
