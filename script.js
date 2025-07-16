@@ -1,19 +1,19 @@
-// Перемикач теми
 const themeSwitch = document.getElementById("themeSwitch");
-const currentTheme = localStorage.getItem("theme");
 const body = document.body;
 
-if (currentTheme === "light") {
+// Завантажити збережену тему
+if (localStorage.getItem("theme") === "light") {
   body.classList.add("light");
   themeSwitch.checked = true;
 }
 
+// Обробник кліку
 themeSwitch.addEventListener("change", () => {
   body.classList.toggle("light");
   localStorage.setItem("theme", body.classList.contains("light") ? "light" : "dark");
 });
 
-// Завантаження свого фото
+// Завантаження фото
 const uploadInput = document.getElementById("upload");
 const avatarImg = document.getElementById("avatarImg");
 
