@@ -4,12 +4,14 @@
   github.com/def4ik-dex
   Дизайн можна надихатись, але не копіювати 1-в-1
   © Dex 2025. Всі права захищені.
---><!DOCTYPE html><html lang="uk">
+-->
+<!DOCTYPE html>
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dex Bio</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
     :root {
       --main-bg: #111;
@@ -103,6 +105,7 @@
     .github { background-color: #333; }
     .youtube { background-color: red; }
     .fanpay { background-color: var(--fanpay-color); }
+
     .btn-shop {
       background-color: var(--accent);
       color: white;
@@ -129,9 +132,40 @@
     .btn-shop:hover::before {
       left: 100%;
     }
+
+    /* Кнопки перемикання треків круглі зі стрілками */
+    .track-btn {
+      border-radius: 50px; /* круглі */
+      padding: 10px 24px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      transition: background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      padding-left: 36px; /* місце для стрілки */
+    }
+    .track-btn::before {
+      content: "→";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .track-btn:hover {
+      background-color: #a020f0;
+      transform: scale(1.05);
+    }
+
     .btn-active {
       background-color: #a020f0 !important;
     }
+
     #spotify-player {
       display: none;
       margin-top: 15px;
@@ -142,6 +176,7 @@
       display: block;
       opacity: 1;
     }
+
     .divider {
       width: 80%;
       height: 3px;
@@ -180,7 +215,9 @@
     .download-like a:hover, .download-like button:hover {
       background: #a020f0;
     }
-    .like-btn { background: #ff69b4; }
+    .like-btn {
+      background: #ff69b4;
+    }
     #counter {
       position: fixed;
       bottom: 10px;
@@ -205,7 +242,7 @@
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
   <header>
-    <img src="Dexav.png" alt="Dex Avatar" class="avatar">
+    <img src="Dexav.png" alt="Dex Avatar" class="avatar" />
     <div class="about-box">
       <h1>👋 Привіт, я Dex</h1>
       <p>Це мій GitHub Bio-сайт з магазином, статистикою та стилем!</p>
@@ -217,44 +254,62 @@
       <a href="https://funpay.com/uk/users/13700115/" class="fanpay" target="_blank">FanPay</a>
     </div>
     <button class="btn-shop" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
-      🛒 Магазин
+      Магазин
     </button>
   </header>
   <div style="text-align:center; margin-top:20px;">
-    <button onclick="toggleMusic()" class="btn-shop">🎵 Музика</button>
+    <button onclick="toggleMusic()" class="btn-shop">Музика</button>
+
     <div id="spotify-player">
       <div style="margin-bottom:10px;">
-        <button onclick="switchTrack(1)" id="btn-track-1" class="btn-shop btn-active">▶️ Трек 1</button>
-        <button onclick="switchTrack(2)" id="btn-track-2" class="btn-shop">▶️ Альбом 2</button>
+        <button onclick="switchTrack(1)" id="btn-track-1" class="track-btn btn-active">Трек 1</button>
+        <button onclick="switchTrack(2)" id="btn-track-2" class="track-btn">Альбом 2</button>
       </div>
-      <iframe id="spotify-frame" style="border-radius:12px" src="https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe
+        id="spotify-frame"
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0"
+        width="100%"
+        height="80"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     </div>
   </div>
+
   <div class="divider"></div>
   <section id="shop" class="shop-section">
     <h2>🛒 Магазин</h2>
     <h3>❄️ Зимні шейдери для Minecraft 1.16.5</h3>
-    <img src="shaders.png" alt="Зимні шейдери">
+    <img src="shaders.png" alt="Зимні шейдери" />
     <div class="download-like">
       <a href="files/shaders.zip" download>⬇️ Скачати</a>
       <button class="like-btn" onclick="toggleLike('shader')">❤️ <span id="likes-shader">0</span></button>
     </div>
+
     <h3>⚙️ Налаштування Minecraft</h3>
     <div class="download-like">
       <a href="files/nast.zip" download>⬇️ Скачати</a>
       <button class="like-btn" onclick="toggleLike('nast')">❤️ <span id="likes-nast">0</span></button>
     </div>
   </section>
+
   <div id="counter">👁 0</div>
   <div id="copyright">© Dex 2025. Всі права захищені.</div>
+
+  <!-- GoatCounter -->
   <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
   <script>
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         const el = document.getElementById('counter');
         el.textContent = `👁 ${data.totals.views}`;
       });
+
     function toggleLike(id) {
       const key = `dex_like_${id}`;
       const liked = localStorage.getItem(key) === '1';
@@ -262,44 +317,38 @@
       localStorage.setItem(key, newLiked ? '1' : '0');
       document.getElementById(`likes-${id}`).textContent = newLiked ? 1 : 0;
     }
-    ['shader', 'nast'].forEach(id => {
+
+    ['shader', 'nast'].forEach((id) => {
       const liked = localStorage.getItem(`dex_like_${id}`) === '1';
       document.getElementById(`likes-${id}`).textContent = liked ? 1 : 0;
     });
+
     function toggleTheme() {
       document.body.classList.toggle('light');
     }
+
     function toggleMusic() {
       const player = document.getElementById('spotify-player');
-      if (player.classList.contains('show')) {
-        player.classList.remove('show');
-        setTimeout(() => player.style.display = 'none', 600);
-      } else {
-        player.style.display = 'block';
-        setTimeout(() => player.classList.add('show'), 10);
-      }
+      player.classList.toggle('show');
     }
-    function switchTrack(trackNum) {
+
+    function switchTrack(id) {
       const frame = document.getElementById('spotify-frame');
       const btn1 = document.getElementById('btn-track-1');
       const btn2 = document.getElementById('btn-track-2');
-      if (trackNum === 1) {
-        frame.src = "https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0";
+
+      if (id === 1) {
+        frame.src = 'https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0';
         btn1.classList.add('btn-active');
         btn2.classList.remove('btn-active');
       } else {
-        frame.src = "https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0";
+        frame.src = 'https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0';
         btn2.classList.add('btn-active');
         btn1.classList.remove('btn-active');
       }
     }
-    console.log("Сайт створено Dex © 2025 — github.com/def4ik-dex");
-    Object.defineProperty(window, 'dexSignature', {
-      value: 'Created by Dex © 2025',
-      writable: false,
-      configurable: false,
-      enumerable: false
-    });
+
+    console.log('Сайт створено Dex © 2025 — github.com/def4ik-dex');
   </script>
 </body>
 </html>
