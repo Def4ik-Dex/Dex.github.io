@@ -133,66 +133,10 @@
       left: 100%;
     }
 
-    .divider {
-      width: 80%;
-      height: 3px;
-      background: var(--accent);
-      margin: 50px auto;
-      border-radius: 3px;
+    .btn-active {
+      background-color: #a020f0 !important;
     }
-    .shop-section {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .shop-section img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
-    }
-    .download-like {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .download-like a, .download-like button {
-      background: purple;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .download-like a:hover, .download-like button:hover {
-      background: #a020f0;
-    }
-    .like-btn {
-      background: #ff69b4;
-    }
-    #counter {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 14px;
-      font-family: sans-serif;
-      color: #888;
-      background: rgba(0,0,0,0.5);
-      padding: 5px 10px;
-      border-radius: 8px;
-      z-index: 100;
-    }
-    #copyright {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      font-size: 13px;
-      color: #888;
-    }
+
     #spotify-player {
       display: none;
       margin-top: 15px;
@@ -203,17 +147,7 @@
       display: block;
       opacity: 1;
     }
-  </style>
-</head>
-<body>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-  <header>
-    <img src="Dexav.png" alt="Dex Avatar" class="avatar">
-    <div class="about-box">
-      <h1>👋 Привіт, я Dex</h1>
-      <p>Це мій GitHub Bio-сайт з магазином, статистикою та стилем!</p>
-    </div>
-    <div class="social-buttons">
+<div class="social-buttons">
       <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank">Telegram</a>
       <a href="https://github.com/def4ik-dex" class="github" target="_blank">GitHub</a>
       <a href="https://www.youtube.com/@Def-Dex" class="youtube" target="_blank">YouTube</a>
@@ -227,7 +161,12 @@
   <div style="text-align:center; margin-top:20px;">
     <button onclick="toggleMusic()" class="btn-shop">🎵 Музика</button>
     <div id="spotify-player">
+      <div style="margin-bottom:10px;">
+        <button onclick="switchTrack(1)" id="btn-track-1" class="btn-shop btn-active">▶️ Трек 1</button>
+        <button onclick="switchTrack(2)" id="btn-track-2" class="btn-shop">▶️ Альбом 2</button>
+      </div>
       <iframe
+        id="spotify-frame"
         style="border-radius:12px"
         src="https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0"
         width="100%"
@@ -241,10 +180,8 @@
   </div>
 
   <div class="divider"></div>
-
   <section id="shop" class="shop-section">
     <h2>🛒 Магазин</h2>
-
     <h3>❄️ Зимні шейдери для Minecraft 1.16.5</h3>
     <img src="shaders.png" alt="Зимні шейдери">
     <div class="download-like">
@@ -262,6 +199,7 @@
   <div id="counter">👁 0</div>
   <div id="copyright">© Dex 2025. Всі права захищені.</div>
 
+  <!-- GoatCounter -->
   <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script>
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
@@ -292,17 +230,30 @@
       const player = document.getElementById('spotify-player');
       if (player.classList.contains('show')) {
         player.classList.remove('show');
-        setTimeout(() => {
-          player.style.display = 'none';
-        }, 600);
+        setTimeout(() => player.style.display = 'none', 600);
       } else {
         player.style.display = 'block';
-        setTimeout(() => {
-          player.classList.add('show');
-        }, 10);
+        setTimeout(() => player.classList.add('show'), 10);
       }
     }
 
+    function switchTrack(trackNum) {
+      const frame = document.getElementById('spotify-frame');
+      const btn1 = document.getElementById('btn-track-1');
+      const btn2 = document.getElementById('btn-track-2');
+
+      if (trackNum === 1) {
+        frame.src = "https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0";
+        btn1.classList.add('btn-active');
+        btn2.classList.remove('btn-active');
+      } else {
+        frame.src = "https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0";
+        btn2.classList.add('btn-active');
+        btn1.classList.remove('btn-active');
+      }
+    }
+
+    // Підпис
     console.log("Сайт створено Dex © 2025 — github.com/def4ik-dex");
     Object.defineProperty(window, 'dexSignature', {
       value: 'Created by Dex © 2025',
