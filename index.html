@@ -52,8 +52,14 @@
       margin: 30px auto;
       padding: 25px;
       background-color: #222;
+      color: white;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      transition: background 0.4s, color 0.4s;
+    }
+    body.light .about-box {
+      background-color: #ddd;
+      color: #111;
     }
     .social-buttons {
       margin: 20px 0;
@@ -168,8 +174,10 @@
   font-size: 14px;
   font-family: sans-serif;
   color: #888;
-  opacity: 0;
-  transition: opacity 1s ease;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 8px;
+  z-index: 100;
 }
 #copyright {
   position: fixed;
@@ -186,7 +194,7 @@
     <img src="Dexav.png" alt="Dex Avatar" class="avatar">
     <div class="about-box">
       <h1>👋 Привіт, я Dex</h1>
-      <p>Це мій GitHub Bio-сайт з магазином, тут ти найдеш мої мереж beta!</p>
+      <p>Це мій GitHub Bio-сайт з магазином, статистикою та стилем!</p>
     </div>
     <div class="social-buttons">
       <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank">Telegram</a>
@@ -212,7 +220,6 @@
       .then(data => {
         const el = document.getElementById('counter');
         el.textContent = `👁 ${data.totals.views}`;
-        el.style.opacity = 1;
       });
   </script>  <!-- Лайк -->  <script>
     const likeKey = 'dex_shader_like';
