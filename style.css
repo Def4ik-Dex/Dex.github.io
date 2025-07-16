@@ -26,8 +26,12 @@ body {
 .theme-toggle {
   position: absolute;
   top: 20px;
-  right: 20px;
-  font-size: 18px;
+  left: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-color);
 }
 
 .container {
