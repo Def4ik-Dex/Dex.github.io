@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dex Bio</title>
-  <link rel="icon" href="Dexav.png" />
+  <link rel="stylesheet" href="style.css" />
   <style>
     :root {
       --main-bg: #111;
@@ -19,9 +19,7 @@
       --accent: #8e2de2;
       --tg-color: #33ccff;
       --fanpay-color: #0077ff;
-      --radius: 10px;
     }
-    * { box-sizing:border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -29,7 +27,6 @@
       color: var(--main-color);
       scroll-behavior: smooth;
       transition: background 0.4s, color 0.4s;
-      padding-bottom: 80px;
     }
     body.light {
       --main-bg: #f5f5f5;
@@ -45,29 +42,8 @@
       padding: 6px 12px;
       border-radius: 8px;
       cursor: pointer;
-      z-index: 200;
+      z-index: 100;
     }
-    .lang-switch {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      display:flex;
-      gap:6px;
-      z-index:200;
-    }
-    .lang-btn {
-      background: rgba(255,255,255,0.08);
-      border: none;
-      padding:6px 10px;
-      border-radius:6px;
-      cursor:pointer;
-      color: inherit;
-      font-weight:600;
-      backdrop-filter: blur(4px);
-      transition:transform .2s;
-    }
-    .lang-btn.active { box-shadow:0 0 10px var(--accent); }
-    .lang-btn:hover { transform:scale(1.05); }
     header {
       padding: 30px 20px 10px;
       text-align: center;
@@ -80,15 +56,14 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
     .about-box {
-      max-width: 500px;
-      margin: 20px auto;
+      max-width: 480px;
+      margin: 30px auto;
       padding: 25px;
       background-color: #222;
       color: white;
-      border-radius: var(--radius);
-      box-shadow: 0 0 25px rgba(0,0,0,0.6);
-      transition: background .3s,color .3s;
-      position: relative;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      transition: background 0.4s, color 0.4s;
     }
     body.light .about-box {
       background-color: #ddd;
@@ -96,22 +71,19 @@
     }
     .social-buttons {
       margin: 20px 0;
-      display:inline-flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:center;
     }
     .social-buttons a {
       display: inline-block;
-      padding: 10px 18px;
+      margin: 8px;
+      padding: 10px 20px;
       border-radius: 10px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       color: #fff;
+      transition: 0.3s ease;
       position: relative;
       overflow: hidden;
-      transition: transform .2s;
     }
     .social-buttons a::before {
       content: "";
@@ -120,14 +92,19 @@
       left: -100%;
       width: 200%;
       height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
-      transition: left .5s;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      transition: left 0.5s;
     }
-    .social-buttons a:hover::before { left:100%; }
-    .social-buttons a:hover { transform:scale(1.05); }
+    .social-buttons a:hover::before {
+      left: 100%;
+    }
+    .social-buttons a:hover {
+      transform: scale(1.05);
+    }
     .telegram { background-color: var(--tg-color); }
     .youtube { background-color: red; }
     .fanpay { background-color: var(--fanpay-color); }
+
     .btn-shop {
       background-color: var(--accent);
       color: white;
@@ -135,23 +112,68 @@
       padding: 10px 24px;
       border-radius: 10px;
       font-size: 16px;
-      margin-top: 10px;
+      margin-top: 15px;
       cursor: pointer;
-      transition: background .3s ease;
+      transition: background 0.3s ease;
       position: relative;
       overflow: hidden;
-      display:inline-block;
     }
     .btn-shop::before {
       content: "";
       position: absolute;
-      top: 0; left: -100%;
-      width: 200%; height: 100%;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
       background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
-      transition: left .5s;
+      transition: left 0.5s;
     }
-    .btn-shop:hover::before { left:100%; }
-    .btn-shop:hover { transform:scale(1.03); }
+    .btn-shop:hover::before {
+      left: 100%;
+    }
+
+    .track-btn {
+      border-radius: 50px;
+      padding: 10px 24px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      transition: background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      padding-left: 36px;
+    }
+    .track-btn::before {
+      content: "→";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .track-btn:hover {
+      background-color: #a020f0;
+      transform: scale(1.05);
+    }
+
+    .btn-active {
+      background-color: #a020f0 !important;
+    }
+
+    #spotify-player {
+      display: none;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #spotify-player.show {
+      display: block;
+      opacity: 1;
+    }
 
     .divider {
       width: 80%;
@@ -163,88 +185,33 @@
     .shop-section {
       padding: 40px 20px;
       text-align: center;
-      max-width: 900px;
-      margin: auto;
     }
-    .shop-item {
-      margin-top: 30px;
-      background: rgba(255,255,255,0.02);
-      padding: 20px;
-      border-radius: 14px;
-      position: relative;
-      overflow:hidden;
+    .shop-section img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
     }
-    .shop-item h3 {
-      margin:0;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .download-like {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
     }
-    .badge-new {
-      background: #ff4081;
-      color:#fff;
-      padding:4px 10px;
-      border-radius:999px;
-      font-size:12px;
-      margin-left:6px;
-      display:inline-block;
-    }
-    .shop-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:30px;
-      justify-content:center;
-    }
-    .shop-thumb {
-      max-width: 300px;
-      width:100%;
-      border-radius:10px;
-      box-shadow:0 8px 25px rgba(0,0,0,0.3);
-      margin:10px auto;
-    }
-    .download-group {
-      margin-top: 12px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .small-label {
-      font-size:12px;
-      margin-top:6px;
-      color: #bbb;
-    }
-    #spotify-player {
-      margin-top: 25px;
-      text-align:center;
-    }
-    .track-btn {
-      border-radius: 50px;
+    .download-like a {
+      background: purple;
       padding: 10px 20px;
-      margin-right: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      background-color: var(--accent);
       color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 16px;
       border: none;
-      transition: background .25s, transform .2s;
-      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .track-btn.btn-active { background-color: #a020f0; }
-    .track-btn:hover { transform: scale(1.05); }
-    #spotify-frame {
-      border-radius:12px;
-      width:100%;
-      max-width:700px;
-      height:80px;
-      margin-top:8px;
-      border:0;
-    }
-    #spotify-error {
-      color:#ff8c8c;
-      margin-top:6px;
-      font-size:13px;
-      display:none;
+    .download-like a:hover {
+      background: #a020f0;
     }
     #counter {
       position: fixed;
@@ -256,255 +223,117 @@
       background: rgba(0,0,0,0.5);
       padding: 5px 10px;
       border-radius: 8px;
-      z-index: 150;
+      z-index: 100;
     }
-    #public-stats {
-      margin-top:8px;
-      font-size:13px;
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    #toTop {
+    #copyright {
       position: fixed;
-      bottom: 70px;
-      right: 20px;
-      display: none;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      z-index: 200;
-    }
-    footer {
-      text-align:center;
-      margin-top:60px;
-      padding:15px;
-      font-size:13px;
-      color:#888;
-    }
-    .lang-note { font-size:11px; margin-top:4px; }
-    @media (max-width:900px){
-      .shop-row { flex-direction:column; }
+      bottom: 10px;
+      left: 10px;
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" aria-label="Тема" onclick="toggleTheme()">🌓</button>
-  <div class="lang-switch">
-    <button class="lang-btn" data-lang="uk">УК</button>
-    <button class="lang-btn" data-lang="en">EN</button>
-  </div>
-
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
   <header>
     <img src="Dexav.png" alt="Dex Avatar" class="avatar" />
     <div class="about-box">
-      <h1 data-i18n="greeting">👋 Привіт, я Dex</h1>
-      <p data-i18n="desc">Це мій GitHub Bio-сайт з магазином, тут ти знайдеш много чого!</p>
+      <h1>👋 Привіт, я Dex</h1>
+      <p>Це мій GitHub Bio-сайт з магазином, тут ти знайдеш много чого!</p>
     </div>
     <div class="social-buttons">
-      <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank" aria-label="Telegram">Telegram</a>
-      <a href="https://www.youtube.com/@Def-Dex" class="youtube" target="_blank" aria-label="YouTube">YouTube</a>
-      <a href="https://funpay.com/uk/users/13700115/" class="fanpay" target="_blank" aria-label="FanPay">FanPay</a>
+      <a href="https://t.me/ParavozikDLC" class="telegram" target="_blank">Telegram</a>
+      <a href="https://www.youtube.com/@Def-Dex" class="youtube" target="_blank">YouTube</a>
+      <a href="https://funpay.com/uk/users/13700115/" class="fanpay" target="_blank">FanPay</a>
     </div>
-    <button class="btn-shop" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })" data-i18n="shop_button">🛒 Магазин</button>
+    <button class="btn-shop" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' })">
+      Магазин
+    </button>
   </header>
-
-  <div class="divider"></div>
-
-  <section id="shop" class="shop-section">
-    <h2 data-i18n="shop_title">🛒 Магазин</h2>
-    <div class="shop-row">
-      <div class="shop-item">
-        <h3 data-i18n="shaders">
-          ❄️ Зимні шейдери для Minecraft 1.16.5 
-          <span class="badge-new">NEW</span>
-        </h3>
-        <img src="shaders.png" alt="Зимні шейдери" class="shop-thumb" />
-        <div class="download-group">
-          <a href="files/shaders.zip" download class="btn-shop" onclick="trackEvent('/download/shaders','Download Shaders')" data-i18n="download">⬇️ Скачати</a>
-        </div>
+  <div style="text-align:center; margin-top:20px;">
+    <button onclick="toggleMusic()" class="btn-shop">Музика</button>
+    <div id="spotify-player">
+      <div style="margin-bottom:10px;">
+        <button onclick="switchTrack(1)" id="btn-track-1" class="track-btn btn-active">Трек 1</button>
+        <button onclick="switchTrack(2)" id="btn-track-2" class="track-btn">Альбом 2</button>
       </div>
-
-      <div class="shop-item">
-        <h3 data-i18n="settings">⚙️ Налаштування Minecraft</h3>
-        <div class="download-group">
-          <a href="files/nast.zip" download class="btn-shop" onclick="trackEvent('/download/settings','Download Settings')" data-i18n="download">⬇️ Скачати</a>
-        </div>
-      </div>
-    </div>
-
-    <div id="public-stats">
-      <div id="shaders-count">Завантажень шейдерів: ...</div>
-      <div id="settings-count">Завантажень налаштувань: ...</div>
-    </div>
-  </section>
-
-  <div id="spotify-player">
-    <div style="text-align:center; margin-top:40px;">
-      <button onclick="switchTrack(1)" id="btn-track-1" class="track-btn btn-active">🎵 Flip Flop</button>
-      <button onclick="switchTrack(2)" id="btn-track-2" class="track-btn">🎧 Альбом</button>
-      <div id="spotify-error">Не вдалося завантажити плеєр. Спробуй ще раз.</div>
       <iframe
         id="spotify-frame"
+        style="border-radius:12px"
         src="about:blank"
+        width="100%"
+        height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
       ></iframe>
     </div>
   </div>
-
+  <div class="divider"></div>
+  <section id="shop" class="shop-section">
+    <h2>🛒 Магазин</h2>
+    <h3>❄️ Зимні шейдери для Minecraft 1.16.5</h3>
+    <img src="shaders.png" alt="Зимні шейдери" />
+    <div class="download-like">
+      <a href="files/shaders.zip" download>⬇️ Скачати</a>
+    </div>
+    <h3>⚙️ Налаштування Minecraft</h3>
+    <div class="download-like">
+      <a href="files/nast.zip" download>⬇️ Скачати</a>
+    </div>
+  </section>
   <div id="counter">👁 0</div>
-  <button id="toTop" aria-label="Вгору">↑</button>
+  <div id="copyright">© Dex 2025. Всі права захищені.</div>
 
-  <footer>
-    <div class="lang-note">Мова зберігається локально, інші користувачі бачать свою.</div>
-    <div>© Dex 2025. Всі права захищені.</div>
-  </footer>
-
-  <!-- GoatCounter скрипт (понад усе—для загальних переглядів) -->
+  <!-- GoatCounter -->
   <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
   <script>
-    // i18n
-    const translations = {
-      uk: {
-        greeting: '👋 Привіт, я Dex',
-        desc: 'Це мій GitHub Bio-сайт з магазином, тут ти знайдеш много чого!',
-        shop_title: '🛒 Магазин',
-        shaders: '❄️ Зимні шейдери для Minecraft 1.16.5',
-        settings: '⚙️ Налаштування Minecraft',
-        download: '⬇️ Скачати',
-        shop_button: '🛒 Магазин'
-      },
-      en: {
-        greeting: '👋 Hi, I’m Dex',
-        desc: 'This is my GitHub bio site with a shop — find cool stuff below!',
-        shop_title: '🛒 Shop',
-        shaders: '❄️ Winter shaders for Minecraft 1.16.5',
-        settings: '⚙️ Minecraft settings',
-        download: '⬇️ Download',
-        shop_button: '🛒 Shop'
-      }
-    };
-
-    function setLanguage(lang) {
-      localStorage.setItem('dex_lang', lang);
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-          el.textContent = translations[lang][key];
-        }
-      });
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-      if (window.goatcounter) goatcounter.count({ path: `/lang/${lang}`, title: `Language: ${lang}` });
-    }
-
-    // стартова мова
-    setLanguage(localStorage.getItem('dex_lang') || 'uk');
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-    });
-
-    // Показ загальних переглядів
+    // Показ переглядів
     fetch('https://dexbio.goatcounter.com/api/v0/stats/total')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('counter').textContent = `👁 ${data.totals.views}`;
-      })
-      .catch(() => { /* ігноруєм */ });
+      .then((res) => res.json())
+      .then((data) => {
+        const el = document.getElementById('counter');
+        el.textContent = `👁 ${data.totals.views}`;
+      });
 
-    // Публічна статистика скачувань
-    async function fetchPublicCount(pathKey, elId) {
-      try {
-        const resp = await fetch(`https://dexbio.goatcounter.com/api/v0/paths?path=${encodeURIComponent(pathKey)}`);
-        if (!resp.ok) throw new Error();
-        const data = await resp.json();
-        const entry = data.entries && data.entries[0];
-        const count = entry ? entry.views : 0;
-        document.getElementById(elId).textContent =
-          elId === 'shaders-count'
-            ? `Завантажень шейдерів: ${count}`
-            : `Завантажень налаштувань: ${count}`;
-      } catch (e) {
-        document.getElementById(elId).textContent = 'Статистика недоступна';
-      }
-    }
-    fetchPublicCount('/download/shaders', 'shaders-count');
-    fetchPublicCount('/download/settings', 'settings-count');
-
-    function trackEvent(path, title) {
-      if (window.goatcounter) goatcounter.count({ path, title });
-      // також оновити публічний лічильник після невеликої затримки
-      setTimeout(() => {
-        if (path === '/download/shaders') fetchPublicCount('/download/shaders', 'shaders-count');
-        if (path === '/download/settings') fetchPublicCount('/download/settings', 'settings-count');
-      }, 800);
-    }
-
-    // Перемикання теми (можна зберігати)
+    // Тема
     function toggleTheme() {
       document.body.classList.toggle('light');
-      const isLight = document.body.classList.contains('light') ? 'light' : 'dark';
-      localStorage.setItem('dex_theme', isLight);
     }
-    // відновлюємо тему
-    const savedTheme = localStorage.getItem('dex_theme');
-    if (savedTheme === 'light') document.body.classList.add('light');
 
-    // Spotify переключення з lazy load і fallback
+    // Музика: переключення та lazy load
+    function toggleMusic() {
+      const player = document.getElementById('spotify-player');
+      player.classList.toggle('show');
+      const frame = document.getElementById('spotify-frame');
+      if (frame.src === 'about:blank') {
+        switchTrack(1);
+      }
+    }
+
     function switchTrack(id) {
       const frame = document.getElementById('spotify-frame');
       const btn1 = document.getElementById('btn-track-1');
       const btn2 = document.getElementById('btn-track-2');
-      const errorEl = document.getElementById('spotify-error');
 
       frame.src = 'about:blank';
-      errorEl.style.display = 'none';
+
       if (id === 1) {
-        btn1.classList.add('btn-active');
-        btn2.classList.remove('btn-active');
         setTimeout(() => {
           frame.src = 'https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0';
         }, 50);
-        if (window.goatcounter) goatcounter.count({ path: '/switch_track/1', title: 'Track 1' });
+        btn1.classList.add('btn-active');
+        btn2.classList.remove('btn-active');
       } else {
-        btn2.classList.add('btn-active');
-        btn1.classList.remove('btn-active');
         setTimeout(() => {
           frame.src = 'https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0';
         }, 50);
-        if (window.goatcounter) goatcounter.count({ path: '/switch_track/2', title: 'Album' });
+        btn2.classList.add('btn-active');
+        btn1.classList.remove('btn-active');
       }
-
-      // таймаут помилки
-      let loaded = false;
-      const to = setTimeout(() => {
-        if (!loaded) {
-          errorEl.style.display = 'block';
-        }
-      }, 5000);
-      frame.onload = () => {
-        loaded = true;
-        clearTimeout(to);
-        errorEl.style.display = 'none';
-      };
     }
 
-    // Показати кнопку "вгору"
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', () => {
-      toTop.style.display = window.scrollY > 200 ? 'block' : 'none';
-    });
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Ініціювати трек при першому відкритті, якщо користувач розкрив
-    // (не автозапуск, але при відкритті)
     // Авторський підпис
     console.log("Caйт ствopeно Dex © 2025 - github.com/def4ik-dex");
     Object.defineProperty(window, 'dexSignature', {
