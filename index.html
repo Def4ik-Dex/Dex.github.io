@@ -1,9 +1,17 @@
+<!--
+  Dex GitHub Bio-сайт
+  Автор: Dex
+  github.com/def4ik-dex
+  Дизайн можна надихатись, але не копіювати 1-в-1
+  © Dex 2025. Всі права захищені.
+-->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dex Bio</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     :root {
       --main-bg: #111;
@@ -11,7 +19,6 @@
       --accent: #8e2de2;
       --tg-color: #33ccff;
       --fanpay-color: #0077ff;
-      --island-bg: #000;
     }
     body {
       margin: 0;
@@ -20,7 +27,6 @@
       color: var(--main-color);
       scroll-behavior: smooth;
       transition: background 0.4s, color 0.4s;
-      padding-bottom: 50px;
     }
     body.light {
       --main-bg: #f5f5f5;
@@ -112,144 +118,62 @@
       position: relative;
       overflow: hidden;
     }
-    
-    /* --- DYNAMIC ISLAND STYLES START --- */
-    .dynamic-island-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      height: 60px; /* Reserve space to prevent layout jump */
-      margin-bottom: 20px;
-    }
-
-    .dynamic-island {
-      background: var(--island-bg);
-      color: white;
-      border-radius: 35px;
-      width: 140px; /* Початкова ширина */
-      height: 35px; /* Початкова висота */
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Пружинна анімація */
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-      cursor: pointer;
-      z-index: 50;
-    }
-
-    /* Стан "Відкрито" */
-    .dynamic-island.active {
-      width: 350px; /* Ширина плеєра */
-      height: 180px; /* Висота плеєра */
-      border-radius: 25px;
-      cursor: default;
-      background: #0a0a0a;
-      border: 1px solid #333;
-    }
-
-    /* Контент всередині острова */
-    .island-minimized {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 35px;
-      font-weight: bold;
-      font-size: 14px;
-      opacity: 1;
-      transition: opacity 0.3s;
-      gap: 8px;
-    }
-    
-    /* Анімація хвилі звуку (декор) */
-    .wave-icon {
-      display: flex;
-      gap: 2px;
-      height: 12px;
-      align-items: center;
-    }
-    .wave-bar {
-      width: 2px;
-      background: #1DB954; /* Spotify Green */
-      animation: wave 1s infinite ease-in-out;
-    }
-    .wave-bar:nth-child(2) { animation-delay: 0.1s; height: 60%; }
-    .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 80%; }
-    .wave-bar:nth-child(4) { animation-delay: 0.3s; height: 40%; }
-    
-    @keyframes wave {
-      0%, 100% { height: 40%; }
-      50% { height: 100%; }
-    }
-
-    .island-expanded {
-      opacity: 0;
-      width: 100%;
+    .btn-shop::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
       height: 100%;
-      padding: 15px;
-      box-sizing: border-box;
-      pointer-events: none; /* Щоб не клікати, коли закрито */
-      transition: opacity 0.4s ease 0.1s;
-      display: flex;
-      flex-direction: column;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      transition: left 0.5s;
     }
-
-    .dynamic-island.active .island-minimized {
-      opacity: 0;
-      display: none;
-    }
-
-    .dynamic-island.active .island-expanded {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .player-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .close-btn {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .close-btn:hover { background: rgba(255,255,255,0.4); }
-
-    .track-controls {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
+    .btn-shop:hover::before {
+      left: 100%;
     }
 
     .track-btn {
-      flex: 1;
-      border-radius: 12px;
-      padding: 8px;
-      font-size: 12px;
+      border-radius: 50px;
+      padding: 10px 24px;
+      margin-right: 10px;
       font-weight: bold;
       cursor: pointer;
-      background-color: #333;
+      background-color: var(--accent);
       color: white;
       border: none;
-      transition: 0.3s;
+      transition: background 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      padding-left: 36px;
     }
-    .track-btn:hover { background-color: #444; }
-    .btn-active { background-color: #1DB954 !important; color: black !important; }
+    .track-btn::before {
+      content: "→";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .track-btn:hover {
+      background-color: #a020f0;
+      transform: scale(1.05);
+    }
 
-    /* --- DYNAMIC ISLAND STYLES END --- */
+    .btn-active {
+      background-color: #a020f0 !important;
+    }
+
+    #spotify-player {
+      display: none;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #spotify-player.show {
+      display: block;
+      opacity: 1;
+    }
 
     .divider {
       width: 80%;
@@ -327,44 +251,25 @@
       Магазин
     </button>
   </header>
-
-  <div class="dynamic-island-wrapper">
-    <div id="island" class="dynamic-island" onclick="openIsland()">
-        <div class="island-minimized">
-            <div class="wave-icon">
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-            </div>
-            <span>Music</span>
-        </div>
-
-        <div class="island-expanded">
-            <div class="player-header">
-                <span style="font-size:14px; font-weight:bold; color:#ccc;">Spotify Player</span>
-                <button class="close-btn" onclick="closeIsland(event)">✕</button>
-            </div>
-            
-            <div class="track-controls">
-                <button onclick="switchTrack(1, event)" id="btn-track-1" class="track-btn btn-active">Трек 1</button>
-                <button onclick="switchTrack(2, event)" id="btn-track-2" class="track-btn">Альбом 2</button>
-            </div>
-            
-            <iframe
-                id="spotify-frame"
-                style="border-radius:12px; background:#222;"
-                src="about:blank"
-                width="100%"
-                height="80"
-                frameborder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-            ></iframe>
-        </div>
+  <div style="text-align:center; margin-top:20px;">
+    <button onclick="toggleMusic()" class="btn-shop">Музика</button>
+    <div id="spotify-player">
+      <div style="margin-bottom:10px;">
+        <button onclick="switchTrack(1)" id="btn-track-1" class="track-btn btn-active">Трек 1</button>
+        <button onclick="switchTrack(2)" id="btn-track-2" class="track-btn">Альбом 2</button>
+      </div>
+      <iframe
+        id="spotify-frame"
+        style="border-radius:12px"
+        src="about:blank"
+        width="100%"
+        height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     </div>
   </div>
-
   <div class="divider"></div>
   <section id="shop" class="shop-section">
     <h2>🛒 Магазин</h2>
@@ -381,6 +286,7 @@
   <div id="counter">👁 14</div>
   <div id="copyright">© Dex 2025. Всі права захищені.</div>
 
+  <!-- GoatCounter -->
   <script data-goatcounter="https://dexbio.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script>
     // Показ переглядів
@@ -396,49 +302,32 @@
       document.body.classList.toggle('light');
     }
 
-    // --- ЛОГІКА DYNAMIC ISLAND ---
-    const island = document.getElementById('island');
-    let isIslandOpen = false;
-
-    function openIsland() {
-      if (!isIslandOpen) {
-        island.classList.add('active');
-        isIslandOpen = true;
-        // Завантажити трек за замовчуванням, якщо ще не завантажено
-        const frame = document.getElementById('spotify-frame');
-        if (frame.src === 'about:blank') {
-            switchTrack(1, null);
-        }
+    // Музика: переключення та lazy load
+    function toggleMusic() {
+      const player = document.getElementById('spotify-player');
+      player.classList.toggle('show');
+      const frame = document.getElementById('spotify-frame');
+      if (frame.src === 'about:blank') {
+        switchTrack(1);
       }
     }
 
-    function closeIsland(event) {
-      if (event) event.stopPropagation(); // Щоб не спрацював клік на батьківський елемент
-      island.classList.remove('active');
-      isIslandOpen = false;
-    }
-
-    function switchTrack(id, event) {
-      if (event) event.stopPropagation(); // Не закривати острів при кліку на кнопки треків
-
+    function switchTrack(id) {
       const frame = document.getElementById('spotify-frame');
       const btn1 = document.getElementById('btn-track-1');
       const btn2 = document.getElementById('btn-track-2');
 
-      // Тимчасово очищуємо, щоб було видно перезагрузку (можна прибрати для плавності)
       frame.src = 'about:blank';
 
       if (id === 1) {
         setTimeout(() => {
-          // Тут встав свій реальний лінк на Spotify Embed
-          frame.src = 'https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=generator'; 
+          frame.src = 'https://open.spotify.com/embed/track/5VLliPlE2x09iFU4DAnIUG?utm_source=generator&theme=0';
         }, 50);
         btn1.classList.add('btn-active');
         btn2.classList.remove('btn-active');
       } else {
         setTimeout(() => {
-          // Тут встав свій реальний лінк на Spotify Embed
-          frame.src = 'https://open.spotify.com/embed/track/5T8EDUDqKcs6wNdEg5wcRg?utm_source=generator';
+          frame.src = 'https://open.spotify.com/embed/album/6t7Ad2P0EbCnkR0rUfKCQ3?utm_source=generator&theme=0';
         }, 50);
         btn2.classList.add('btn-active');
         btn1.classList.remove('btn-active');
