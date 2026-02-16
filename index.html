@@ -3,245 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dex Bio | Ultra Vision</title>
+  <title>Dex Bio | Liquid Edition</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
     :root {
-      --main-bg: #08080a;
+      --main-bg: #0b0b0f;
       --accent: #a020f0;
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
+      --fanpay-neon: #0077ff;
+      --tg-neon: #00d2ff;
+      --yt-neon: #ff0000;
+      --glass: rgba(255, 255, 255, 0.03);
+      --liquid-bg: rgba(255, 255, 255, 0.07);
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       background: var(--main-bg);
-      color: var(--text);
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #0b0b0f 70%);
       overflow-x: hidden;
-      /* Анімований фон */
-      background: radial-gradient(circle at 50% -20%, #25103d 0%, #08080a 50%);
     }
 
-    /* --- Dynamic Island "Pulse" --- */
-    .island-container {
-      margin-top: 30px;
-      z-index: 100;
-    }
+    /* --- ОПТИМІЗОВАНИЙ DYNAMIC ISLAND --- */
+    .island-wrapper { margin-top: 35px; height: 40px; }
 
     .dynamic-island {
       background: #000;
-      width: 150px;
+      width: 140px;
       height: 38px;
-      border-radius: 20px;
+      border-radius: 22px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 0 20px rgba(160, 32, 240, 0.2);
-    }
-
-    .dynamic-island:hover {
-      box-shadow: 0 0 30px rgba(160, 32, 240, 0.4);
-      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
     .dynamic-island.active {
-      width: 320px;
-      height: 160px;
-      border-radius: 28px;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(15px);
+      width: 300px;
+      height: 150px;
+      border-radius: 32px;
     }
 
-    /* --- Avatar з ефектом Floating --- */
-    .avatar-wrapper {
-      margin-top: 40px;
-      animation: floating 3s ease-in-out infinite;
-    }
-
-    @keyframes floating {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 30px rgba(160, 32, 240, 0.5);
-    }
-
-    /* --- Glass Cards --- */
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 25px;
-      width: 85%;
-      max-width: 400px;
-      text-align: center;
-      margin: 20px 0;
-      transition: 0.3s;
-    }
-
-    .glass-card:hover {
-      border-color: var(--accent);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    /* --- Modern Buttons --- */
-    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-
-    .cyber-btn {
-      padding: 12px 25px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 600;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      transition: 0.3s;
+    .island-min {
       display: flex;
       align-items: center;
       gap: 8px;
+      height: 38px;
+      transition: opacity 0.2s;
     }
 
-    .cyber-btn:hover {
+    .island-full {
+      display: none;
+      padding: 18px;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.1s;
+    }
+
+    .dynamic-island.active .island-min { display: none; }
+    .dynamic-island.active .island-full { display: block; opacity: 1; }
+
+    /* Плеєр всередині */
+    .player-ui { display: flex; align-items: center; gap: 12px; }
+    .art { width: 40px; height: 40px; background: #fff; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+    .progress { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 15px 0; overflow: hidden; }
+    .progress-bar { width: 45%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+
+    /* --- LIQUID GLASS PANEL --- */
+    .liquid-panel {
+      background: var(--liquid-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      padding: 30px;
+      width: 85%;
+      max-width: 380px;
+      text-align: center;
+      margin-top: 25px;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    /* Аватар */
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 25px rgba(160, 32, 240, 0.4);
+      margin-bottom: 15px;
+    }
+
+    /* --- NEON BUTTONS --- */
+    .btn-container { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      color: white;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+
+    .btn-fanpay:active { background: var(--fanpay-neon); box-shadow: 0 0 30px var(--fanpay-neon); border-color: transparent; }
+    .btn-tg:active { background: var(--tg-neon); box-shadow: 0 0 30px var(--tg-neon); border-color: transparent; }
+    .btn-yt:active { background: var(--yt-neon); box-shadow: 0 0 30px var(--yt-neon); border-color: transparent; }
+    
+    .btn-market {
       background: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(160, 32, 240, 0.3);
-      border-color: transparent;
-    }
-
-    .market-btn {
+      width: 140px;
       margin-top: 15px;
-      background: linear-gradient(45deg, var(--accent), #6a11cb);
       border: none;
-      width: 160px;
-      cursor: pointer;
     }
+    .btn-market:active { box-shadow: 0 0 30px var(--accent); transform: scale(0.95); }
 
-    /* --- Shop Grid --- */
-    .shop-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      width: 90%;
-      max-width: 450px;
-      margin-bottom: 40px;
-    }
-
-    .shop-item {
-      background: var(--glass);
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--glass-border);
+    /* Маркет картки */
+    .shop-box { display: flex; gap: 15px; margin-top: 30px; width: 90%; max-width: 450px; }
+    .item { 
+      background: var(--glass); 
+      border-radius: 20px; 
+      flex: 1; 
+      overflow: hidden; 
+      border: 1px solid rgba(255,255,255,0.05); 
       transition: 0.3s;
     }
-
-    .shop-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-    }
-
-    .download-area {
-      padding: 15px;
-      background: rgba(0,0,0,0.3);
-    }
-
-    .divider {
-      width: 100px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 10px;
-      margin: 20px 0;
-      box-shadow: 0 0 15px var(--accent);
-    }
-
+    .item:hover { border-color: var(--accent); transform: translateY(-5px); }
   </style>
 </head>
 <body>
 
-  <div class="island-container">
+  <div class="island-wrapper">
     <div id="island" class="dynamic-island" onclick="this.classList.toggle('active')">
-       <div id="min-content" style="display:flex; align-items:center; gap:8px;">
-         <span class="material-icons-round" style="color:var(--accent); font-size:18px;">sensors</span>
-         <span style="font-size:12px; font-weight:bold; letter-spacing:1px;">DEX ONLINE</span>
-       </div>
-       <div id="full-content" style="display:none; width:100%; padding:20px;">
-          <div style="display:flex; align-items:center; gap:15px;">
-            <div style="width:45px; height:45px; background:#fff; border-radius:12px; box-shadow: 0 0 15px rgba(255,255,255,0.3);"></div>
-            <div>
-              <div style="font-weight:bold; font-size:16px;">у батарей</div>
-              <div style="font-size:12px; color:rgba(255,255,255,0.5);">Нервы</div>
-            </div>
+      <div class="island-min">
+        <span class="material-icons-round" style="color:var(--accent); font-size:18px;">play_circle</span>
+        <span style="font-size:12px; font-weight:800;">у батарей</span>
+      </div>
+      <div class="island-full">
+        <div class="player-ui">
+          <div class="art"></div>
+          <div>
+            <div style="font-weight:bold; font-size:15px;">у батарей</div>
+            <div style="font-size:11px; opacity:0.5;">Нервы</div>
           </div>
-          <div style="width:100%; height:4px; background:rgba(255,255,255,0.1); border-radius:2px; margin:20px 0;">
-            <div style="width:65%; height:100%; background:var(--accent); box-shadow: 0 0 10px var(--accent);"></div>
-          </div>
-          <div style="display:flex; justify-content:center; gap:30px;">
-            <span class="material-icons-round">skip_previous</span>
-            <span class="material-icons-round">pause</span>
-            <span class="material-icons-round">skip_next</span>
-          </div>
-       </div>
+        </div>
+        <div class="progress"><div class="progress-bar"></div></div>
+        <div style="display:flex; justify-content:center; gap:35px;">
+          <span class="material-icons-round">skip_previous</span>
+          <span class="material-icons-round">pause</span>
+          <span class="material-icons-round">skip_next</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="avatar-wrapper">
-    <img src="Dexav.png" alt="Dex" class="avatar">
-  </div>
+  <img src="Dexav.png" alt="Avatar" class="avatar" style="margin-top:40px;">
 
-  <div class="glass-card">
-    <h1 style="margin:0; font-size:26px; letter-spacing:-1px;">👋 DexIIs</h1>
-    <p style="color:rgba(255,255,255,0.6); font-size:14px; margin-top:8px;">Creating digital reality.</p>
-    
-    <div class="btn-row" style="margin-top:20px;">
-      <a href="#" class="cyber-btn">FanPay</a>
-      <a href="#" class="cyber-btn">Telegram</a>
+  <div class="liquid-panel">
+    <h1 style="margin:0; font-size:24px; letter-spacing:-0.5px;">👋 привет, я DexIIs</h1>
+    <p style="opacity:0.6; font-size:14px; margin-top:5px;">создаю крутые штуки!</p>
+
+    <div class="btn-container">
+      <a href="https://funpay.com/uk/users/13700115/" class="btn btn-fanpay">FanPay</a>
+      <a href="#" class="btn btn-tg">Telegram</a>
+      <a href="#" class="btn btn-yt">YouTube</a>
     </div>
-    <button class="cyber-btn market-btn" style="margin-left:auto; margin-right:auto;">MARKET</button>
+    <button class="btn btn-market" onclick="document.getElementById('m').scrollIntoView({behavior:'smooth'})">market</button>
   </div>
 
-  <div class="divider"></div>
-
-  <div class="shop-grid">
-    <div class="shop-item">
+  <div id="m" class="shop-box">
+    <div class="item">
       <div style="height:100px; background:url('shaders.png') center/cover;"></div>
-      <div class="download-area">
-        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">SHADERS Pack</div>
-        <a href="#" class="cyber-btn" style="padding:5px; font-size:11px; justify-content:center;">DOWNLOAD</a>
+      <div style="padding:15px; text-align:center;">
+        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">шейдери</div>
+        <a href="#" class="btn" style="padding:5px 15px; font-size:11px; background:var(--accent); border:none;">скачати</a>
       </div>
     </div>
-    <div class="shop-item">
-      <div style="height:100px; background:rgba(160, 32, 240, 0.1); display:flex; align-items:center; justify-content:center;">
-        <span class="material-icons-round" style="font-size:40px; color:var(--accent);">settings</span>
+    <div class="item">
+      <div style="height:100px; background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+        <span class="material-icons-round" style="color:var(--accent); font-size:30px;">settings</span>
       </div>
-      <div class="download-area">
-        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">CONFIG 2025</div>
-        <a href="#" class="cyber-btn" style="padding:5px; font-size:11px; justify-content:center;">DOWNLOAD</a>
+      <div style="padding:15px; text-align:center;">
+        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">настройки</div>
+        <a href="#" class="btn" style="padding:5px 15px; font-size:11px; background:var(--accent); border:none;">скачати</a>
       </div>
     </div>
   </div>
 
-  <script>
-    const island = document.getElementById('island');
-    island.addEventListener('click', () => {
-      const isExpanded = island.classList.contains('active');
-      document.getElementById('min-content').style.display = isExpanded ? 'none' : 'flex';
-      document.getElementById('full-content').style.display = isExpanded ? 'flex' : 'none';
-    });
-  </script>
+  <footer style="margin:40px 0; opacity:0.3; font-size:10px;">© DexIIs 2026</footer>
 
 </body>
 </html>
