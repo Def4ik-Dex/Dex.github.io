@@ -3,165 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dex Bio | Liquid Edition</title>
+  <title>Dex Bio | Liquid Final</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
     :root {
       --main-bg: #0b0b0f;
       --accent: #a020f0;
-      --fanpay-neon: #0077ff;
-      --tg-neon: #00d2ff;
-      --yt-neon: #ff0000;
-      --glass: rgba(255, 255, 255, 0.03);
-      --liquid-bg: rgba(255, 255, 255, 0.07);
+      --fanpay-color: #0077ff;
+      --tg-color: #00d2ff;
+      --yt-color: #ff0000;
+      --liquid-glass: rgba(255, 255, 255, 0.08);
+      --card-bg: #141414;
     }
 
     body {
       margin: 0;
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--main-bg);
+      background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #0b0b0f 70%);
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #0b0b0f 70%);
       overflow-x: hidden;
     }
 
-    /* --- ОПТИМІЗОВАНИЙ DYNAMIC ISLAND --- */
-    .island-wrapper { margin-top: 35px; height: 40px; }
-
+    /* --- ОПТИМІЗОВАНИЙ DYNAMIC ISLAND (БЕЗ ЛАГІВ) --- */
+    .island-container { margin-top: 35px; height: 45px; z-index: 1000; }
+    
     .dynamic-island {
       background: #000;
       width: 140px;
       height: 38px;
-      border-radius: 22px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 20px;
+      transition: all 0.4s cubic-bezier(0.3, 1.2, 0.3, 1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      will-change: width, height; /* Прибирає підлагування */
     }
 
     .dynamic-island.active {
       width: 300px;
-      height: 150px;
-      border-radius: 32px;
+      height: 155px;
+      border-radius: 35px;
     }
 
-    .island-min {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      height: 38px;
-      transition: opacity 0.2s;
-    }
-
-    .island-full {
-      display: none;
-      padding: 18px;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.3s ease 0.1s;
-    }
-
+    .island-min { display: flex; align-items: center; gap: 8px; height: 38px; font-size: 13px; font-weight: 800; }
+    .island-full { display: none; padding: 20px; width: 100%; box-sizing: border-box; }
     .dynamic-island.active .island-min { display: none; }
-    .dynamic-island.active .island-full { display: block; opacity: 1; }
+    .dynamic-island.active .island-full { display: block; }
 
-    /* Плеєр всередині */
-    .player-ui { display: flex; align-items: center; gap: 12px; }
-    .art { width: 40px; height: 40px; background: #fff; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
-    .progress { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 15px 0; overflow: hidden; }
-    .progress-bar { width: 45%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+    /* Плеєр */
+    .player-header { display: flex; align-items: center; gap: 12px; }
+    .album-art { width: 42px; height: 42px; background: #fff; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+    .progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 15px 0; }
+    .progress-fill { width: 65%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
     /* --- LIQUID GLASS PANEL --- */
-    .liquid-panel {
-      background: var(--liquid-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 28px;
+    .liquid-card {
+      background: var(--liquid-glass);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 32px;
       padding: 30px;
       width: 85%;
       max-width: 380px;
       text-align: center;
       margin-top: 25px;
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
-      position: relative;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
     }
 
-    /* Аватар */
     .avatar {
       width: 110px;
       height: 110px;
       border-radius: 50%;
       border: 3px solid var(--accent);
-      box-shadow: 0 0 25px rgba(160, 32, 240, 0.4);
+      box-shadow: 0 0 30px rgba(160, 32, 240, 0.5);
       margin-bottom: 15px;
     }
 
-    /* --- NEON BUTTONS --- */
-    .btn-container { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-
-    .btn {
-      padding: 12px 20px;
-      border-radius: 15px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-      color: white;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s;
-    }
-
-    .btn-fanpay:active { background: var(--fanpay-neon); box-shadow: 0 0 30px var(--fanpay-neon); border-color: transparent; }
-    .btn-tg:active { background: var(--tg-neon); box-shadow: 0 0 30px var(--tg-neon); border-color: transparent; }
-    .btn-yt:active { background: var(--yt-neon); box-shadow: 0 0 30px var(--yt-neon); border-color: transparent; }
+    /* --- BUTTONS WITH NEON GLOW --- */
+    .btn-wrap { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
     
-    .btn-market {
-      background: var(--accent);
-      width: 140px;
-      margin-top: 15px;
-      border: none;
+    .btn-main {
+      padding: 12px 22px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      color: white;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.2s;
     }
-    .btn-market:active { box-shadow: 0 0 30px var(--accent); transform: scale(0.95); }
 
-    /* Маркет картки */
-    .shop-box { display: flex; gap: 15px; margin-top: 30px; width: 90%; max-width: 450px; }
-    .item { 
-      background: var(--glass); 
-      border-radius: 20px; 
+    .btn-fanpay:active { background: var(--fanpay-color); box-shadow: 0 0 35px var(--fanpay-color); }
+    .btn-tg:active { background: var(--tg-color); box-shadow: 0 0 35px var(--tg-color); }
+    .btn-yt:active { background: var(--yt-color); box-shadow: 0 0 35px var(--yt-color); }
+
+    .btn-market { background: var(--accent); border: none; width: 140px; margin-top: 15px; }
+    .btn-market:active { box-shadow: 0 0 30px var(--accent); transform: scale(0.96); }
+
+    /* --- MARKET - ЧОРНІ КНОПКИ (ЯК РАНІШЕ) --- */
+    .shop-container { display: flex; gap: 15px; margin: 30px 0; width: 90%; max-width: 480px; }
+    .shop-item { 
+      background: var(--card-bg); 
+      border-radius: 22px; 
       flex: 1; 
       overflow: hidden; 
-      border: 1px solid rgba(255,255,255,0.05); 
-      transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
-    .item:hover { border-color: var(--accent); transform: translateY(-5px); }
+
+    .download-btn {
+      display: block;
+      background: #000; /* Повернуто чорний колір */
+      color: white;
+      text-align: center;
+      padding: 10px;
+      text-decoration: none;
+      margin: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .download-btn:active { background: var(--accent); border-color: transparent; }
+
+    .divider {
+      width: 90%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
 
-  <div class="island-wrapper">
+  <div class="island-container">
     <div id="island" class="dynamic-island" onclick="this.classList.toggle('active')">
       <div class="island-min">
-        <span class="material-icons-round" style="color:var(--accent); font-size:18px;">play_circle</span>
-        <span style="font-size:12px; font-weight:800;">у батарей</span>
+        <span class="material-icons-round" style="color:var(--accent); font-size:18px;">music_note</span>
+        у батарей
       </div>
       <div class="island-full">
-        <div class="player-ui">
-          <div class="art"></div>
+        <div class="player-header">
+          <div class="album-art"></div>
           <div>
-            <div style="font-weight:bold; font-size:15px;">у батарей</div>
+            <div style="font-weight:900; font-size:15px;">у батарей</div>
             <div style="font-size:11px; opacity:0.5;">Нервы</div>
           </div>
         </div>
-        <div class="progress"><div class="progress-bar"></div></div>
-        <div style="display:flex; justify-content:center; gap:35px;">
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <div style="display:flex; justify-content:center; gap:40px;">
           <span class="material-icons-round">skip_previous</span>
           <span class="material-icons-round">pause</span>
           <span class="material-icons-round">skip_next</span>
@@ -170,40 +172,42 @@
     </div>
   </div>
 
-  <img src="Dexav.png" alt="Avatar" class="avatar" style="margin-top:40px;">
+  <img src="Dexav.png" alt="Dex" class="avatar" style="margin-top:40px;">
 
-  <div class="liquid-panel">
-    <h1 style="margin:0; font-size:24px; letter-spacing:-0.5px;">👋 привет, я DexIIs</h1>
-    <p style="opacity:0.6; font-size:14px; margin-top:5px;">создаю крутые штуки!</p>
+  <div class="liquid-card">
+    <h1 style="margin:0; font-size:26px; letter-spacing:-1px;">👋 привет, я DexIIs</h1>
+    <p style="opacity:0.7; font-size:14px; margin-top:5px; font-weight:500;">создаю крутые штуки!</p>
 
-    <div class="btn-container">
-      <a href="https://funpay.com/uk/users/13700115/" class="btn btn-fanpay">FanPay</a>
-      <a href="#" class="btn btn-tg">Telegram</a>
-      <a href="#" class="btn btn-yt">YouTube</a>
+    <div class="btn-wrap">
+      <a href="https://funpay.com/uk/users/13700115/" class="btn-main btn-fanpay">FanPay</a>
+      <a href="#" class="btn-main btn-tg">Telegram</a>
+      <a href="#" class="btn-main btn-yt">YouTube</a>
     </div>
-    <button class="btn btn-market" onclick="document.getElementById('m').scrollIntoView({behavior:'smooth'})">market</button>
+    <button class="btn-main btn-market" onclick="document.getElementById('market').scrollIntoView({behavior:'smooth'})">market</button>
   </div>
 
-  <div id="m" class="shop-box">
-    <div class="item">
-      <div style="height:100px; background:url('shaders.png') center/cover;"></div>
-      <div style="padding:15px; text-align:center;">
-        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">шейдери</div>
-        <a href="#" class="btn" style="padding:5px 15px; font-size:11px; background:var(--accent); border:none;">скачати</a>
+  <div class="divider"></div>
+
+  <div id="market" class="shop-container">
+    <div class="shop-item">
+      <div style="height:110px; background:url('shaders.png') center/cover;"></div>
+      <div style="padding:5px 12px 12px;">
+        <p style="font-size:13px; font-weight:800; text-align:center; margin-bottom:8px;">шейдери</p>
+        <a href="files/shaders.zip" class="download-btn">скачати</a>
       </div>
     </div>
-    <div class="item">
-      <div style="height:100px; background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
-        <span class="material-icons-round" style="color:var(--accent); font-size:30px;">settings</span>
+    <div class="shop-item">
+      <div style="height:110px; background:#1a1a1a; display:flex; align-items:center; justify-content:center;">
+        <span class="material-icons-round" style="color:var(--accent); font-size:35px;">settings</span>
       </div>
-      <div style="padding:15px; text-align:center;">
-        <div style="font-size:12px; font-weight:bold; margin-bottom:10px;">настройки</div>
-        <a href="#" class="btn" style="padding:5px 15px; font-size:11px; background:var(--accent); border:none;">скачати</a>
+      <div style="padding:5px 12px 12px;">
+        <p style="font-size:13px; font-weight:800; text-align:center; margin-bottom:8px;">настройки</p>
+        <a href="files/nast.zip" class="download-btn">скачати</a>
       </div>
     </div>
   </div>
 
-  <footer style="margin:40px 0; opacity:0.3; font-size:10px;">© DexIIs 2026</footer>
+  <footer style="margin:30px; opacity:0.3; font-size:11px;">© DexIIs 2026</footer>
 
 </body>
 </html>
