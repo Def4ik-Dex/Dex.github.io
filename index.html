@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
     :root {
+      /* Темна тема */
       --main-bg: #050505;
       --card-bg: #141414;
       --text-main: #ffffff;
@@ -14,216 +15,279 @@
       --fanpay-color: #0077ff;
       --tg-color: #33ccff;
       --yt-color: #ff0000;
+      --island-bg: #000;
+      --shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     body.light {
-      --main-bg: #f0f0f3;
+      /* Світла тема - ВИПРАВЛЕНО */
+      --main-bg: #f5f5f7;
       --card-bg: #ffffff;
-      --text-main: #111111;
+      --text-main: #1d1d1f;
+      --accent: #8e2de2;
+      --island-bg: #1d1d1f; /* Острів залишається темним (стиль iOS) */
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--main-bg);
       color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: 0.5s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* --- Налаштування відступу острова --- */
+    /* --- ФІКС ТЕКСТУ НА ОСТРОВІ --- */
     .top-bar {
       width: 100%;
       max-width: 480px;
-      padding: 40px 20px 20px; /* Збільшено верхній відступ */
+      padding: 50px 20px 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       position: relative;
     }
 
-    .theme-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      cursor: pointer;
-      z-index: 100;
-    }
-
-    /* --- DYNAMIC ISLAND ЗІ SPOTIFY --- */
     .island-container {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      top: 35px; /* Опустили нижче */
-      z-index: 50;
+      top: 40px;
+      z-index: 1000;
     }
 
     .dynamic-island {
-      background: #000;
+      background: var(--island-bg);
       color: white;
-      width: 150px;
+      width: 130px;
       height: 35px;
-      border-radius: 30px;
+      border-radius: 25px;
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       overflow: hidden;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-      border: 1px solid #222;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
     .dynamic-island.active {
       width: 350px;
-      height: 220px; /* Збільшено для плеєра */
-      border-radius: 25px;
+      height: 220px;
+      border-radius: 35px;
       cursor: default;
     }
 
+    /* Приховання тексту, щоб він не накладався */
     .island-minimized {
       height: 35px;
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 0 15px;
+      white-space: nowrap;
+      opacity: 1;
+      transition: 0.3s;
     }
 
     .island-expanded {
       width: 100%;
-      padding: 15px;
+      padding: 20px;
       display: none;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      opacity: 0;
+      transition: 0.4s;
     }
 
-    .dynamic-island.active .island-expanded { display: flex; }
-    .dynamic-island.active .island-minimized { display: none; }
+    .dynamic-island.active .island-minimized { opacity: 0; display: none; }
+    .dynamic-island.active .island-expanded { display: flex; opacity: 1; }
 
-    /* Кнопки вибору треків */
-    .track-selector {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 5px;
+    /* --- КНОПКИ З НЕОНОВИМ СВІТІННЯМ --- */
+    .btn {
+      padding: 12px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: var(--card-bg);
+      border: 2px solid transparent;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
     }
-    .track-mini-btn {
+
+    /* Кольори та світіння при натисканні */
+    .btn-fanpay { border-color: var(--fanpay-color); color: var(--fanpay-color); }
+    .btn-fanpay:active { background: var(--fanpay-color); color: white; box-shadow: 0 0 25px var(--fanpay-color); }
+
+    .btn-tg { border-color: var(--tg-color); color: var(--tg-color); }
+    .btn-tg:active { background: var(--tg-color); color: white; box-shadow: 0 0 25px var(--tg-color); }
+
+    .btn-yt { border-color: var(--yt-color); color: var(--yt-color); }
+    .btn-yt:active { background: var(--yt-color); color: white; box-shadow: 0 0 25px var(--yt-color); }
+
+    .btn-purple { background: var(--accent); color: white; border: none; }
+    .btn-purple:active { box-shadow: 0 0 30px var(--accent); transform: scale(0.95); }
+
+    /* --- ВИПРАВЛЕННЯ БІЛОЇ ТЕМИ --- */
+    .bio-box {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 24px;
+      margin: 20px;
+      text-align: center;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(128,128,128,0.1);
+    }
+
+    .divider {
+      width: 90%;
+      max-width: 450px;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 25px 0;
+      border-radius: 10px;
+    }
+
+    .shop-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(128,128,128,0.1);
+      box-shadow: var(--shadow);
       flex: 1;
-      background: #222;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .theme-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      padding: 5px;
+      background: var(--main-bg);
+      box-shadow: 0 0 20px rgba(142, 45, 226, 0.3);
+    }
+
+    .track-mini-btn {
+      background: rgba(255,255,255,0.1);
       border: none;
       color: white;
-      padding: 5px;
-      border-radius: 8px;
-      font-size: 10px;
+      padding: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
     }
     .track-mini-btn.active { background: var(--accent); }
 
-    /* --- КНОПКИ ЗІ СВІТІННЯМ --- */
-    .btn {
-      padding: 12px 25px;
-      border-radius: 15px;
-      text-decoration: none;
-      font-weight: bold;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      outline: none;
+    .shop-container {
+      display: flex;
+      gap: 15px;
+      padding: 20px;
+      width: 95%;
+      max-width: 500px;
     }
-
-    /* Ефекти світіння при кліку */
-    .btn-fanpay:active { background: var(--fanpay-color); box-shadow: 0 0 20px var(--fanpay-color); transform: scale(0.95); }
-    .btn-tg:active { background: var(--tg-color); box-shadow: 0 0 20px var(--tg-color); transform: scale(0.95); }
-    .btn-yt:active { background: var(--yt-color); box-shadow: 0 0 20px var(--yt-color); transform: scale(0.95); }
-    .btn-purple:active { background: var(--accent); box-shadow: 0 0 20px var(--accent); transform: scale(0.95); }
-
-    .btn-fanpay { background: #1a1a1a; border: 1px solid var(--fanpay-color); color: var(--fanpay-color); }
-    .btn-tg { background: #1a1a1a; border: 1px solid var(--tg-color); color: var(--tg-color); }
-    .btn-yt { background: #1a1a1a; border: 1px solid var(--yt-color); color: var(--yt-color); }
-    .btn-purple { background: var(--accent); }
-
-    /* Решта стилів */
-    .avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent); margin-top: 20px; }
-    .bio-box { background: var(--card-bg); padding: 20px; border-radius: 20px; margin: 20px; text-align: center; width: 300px; }
-    .divider { width: 80%; height: 4px; background: var(--accent); border-radius: 2px; margin: 20px 0; box-shadow: 0 0 10px var(--accent); }
-    .shop-container { display: flex; gap: 15px; padding: 20px; max-width: 480px; }
-    .shop-card { background: var(--card-bg); flex: 1; border-radius: 15px; overflow: hidden; border: 1px solid #222; }
-    .btn-download { display: block; background: var(--accent); color: white; text-align: center; padding: 8px; text-decoration: none; margin: 10px; border-radius: 8px; }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
-    <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span class="material-icons-round">🌓</span>
+    </button>
     
     <div class="island-container">
       <div id="island" class="dynamic-island" onclick="openIsland()">
         <div class="island-minimized">
-          <span class="material-icons-round" style="color: #1DB954; font-size: 18px;">spotify</span>
-          <span style="font-size: 12px; font-weight: bold;">Spotify Player</span>
+          <span class="material-icons-round" style="color: #1DB954; font-size: 20px;">spotify</span>
+          <span style="font-size: 13px; font-weight: 800;">Spotify</span>
         </div>
 
         <div class="island-expanded">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 12px; color: #1DB954; font-weight: bold;">Тепер грає</span>
-            <button onclick="closeIsland(event)" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
+            <span style="font-size: 12px; color: #1DB954; font-weight: 900;">SPOTIFY PLAYER</span>
+            <span class="material-icons-round" onclick="closeIsland(event)" style="font-size: 20px; cursor: pointer;">close</span>
           </div>
           
-          <div class="track-selector">
+          <div style="display: flex; gap: 8px;">
             <button class="track-mini-btn active" id="t1" onclick="switchSpotify(1, event)">Трек 1</button>
             <button class="track-mini-btn" id="t2" onclick="switchSpotify(2, event)">Альбом 2</button>
           </div>
 
-          <iframe id="spotify-frame" src="https://open.spotify.com/embed/track/6Uru60Yv9Ym6VNiE8p4Tj3" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="border-radius: 12px;"></iframe>
+          <iframe id="spotify-frame" src="http://googleusercontent.com/spotify.com/6" width="100%" height="80" frameborder="0" allow="autoplay; encrypted-media" style="border-radius: 15px; background: #000;"></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <img src="Dexav.png" alt="Avatar" class="avatar" />
+  <img src="Dexav.png" alt="Avatar" class="avatar" style="margin-top: 30px;"/>
 
   <div class="bio-box">
-    <h2 style="margin:0;">👋 привет, я DexIIs</h2>
-    <p style="color:gray; font-size:14px;">привет ето мое био!</p>
+    <h1 style="margin:0; font-size: 24px;">👋 привет, я DexIIs</h1>
+    <p style="color:gray; font-weight: 500; margin-top: 5px;">привет ето мое био!</p>
   </div>
 
-  <div style="display:flex; gap:10px; margin-bottom:15px;">
+  <div style="display:flex; gap:12px; margin-bottom:20px; flex-wrap: wrap; justify-content: center;">
     <a href="https://funpay.com/uk/users/13700115/" class="btn btn-fanpay">FanPay</a>
     <a href="#" class="btn btn-tg">Telegram</a>
     <a href="#" class="btn btn-yt">YouTube</a>
   </div>
   
-  <button class="btn btn-purple" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">market</button>
+  <button class="btn btn-purple" style="width: 120px;" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">market</button>
 
   <div class="divider"></div>
 
   <div id="shop" class="shop-container">
     <div class="shop-card">
-      <div style="height:80px; background:#333; display:flex; align-items:center; justify-content:center;">❄️</div>
-      <div style="padding:10px;">
-        <div style="font-size:14px;">шейдери</div>
-        <a href="files/shaders.zip" class="btn-download">скачати</a>
+      <div style="height:100px; background:url('shaders.png') center/cover;"></div>
+      <div style="padding:15px; text-align: center;">
+        <div style="font-weight: 700; margin-bottom: 10px;">шейдери</div>
+        <a href="files/shaders.zip" class="btn btn-purple" style="padding: 8px; width: 100%;">скачати</a>
       </div>
     </div>
     <div class="shop-card">
-      <div style="height:80px; background:#1a1a1a; display:flex; align-items:center; justify-content:center;">⚙️</div>
-      <div style="padding:10px;">
-        <div style="font-size:14px;">настройки</div>
-        <a href="files/nast.zip" class="btn-download">скачати</a>
+      <div style="height:100px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; color: white;">⚙️</div>
+      <div style="padding:15px; text-align: center;">
+        <div style="font-weight: 700; margin-bottom: 10px;">настройки</div>
+        <a href="files/nast.zip" class="btn btn-purple" style="padding: 8px; width: 100%;">скачати</a>
       </div>
     </div>
   </div>
 
   <script>
-    function toggleTheme() { document.body.classList.toggle('light'); }
+    function toggleTheme() { 
+      document.body.classList.toggle('light'); 
+    }
 
-    function openIsland() { document.getElementById('island').classList.add('active'); }
+    function openIsland() { 
+      document.getElementById('island').classList.add('active'); 
+    }
     
     function closeIsland(e) {
       e.stopPropagation();
@@ -237,10 +301,10 @@
       const b2 = document.getElementById('t2');
       
       if(id === 1) {
-        frame.src = "https://open.spotify.com/embed/track/6Uru60Yv9Ym6VNiE8p4Tj3";
+        frame.src = "http://googleusercontent.com/spotify.com/6";
         b1.classList.add('active'); b2.classList.remove('active');
       } else {
-        frame.src = "https://open.spotify.com/embed/album/1Y8t5S0E4n8L6r8f6r8f6r"; // Заміни на свій ID
+        frame.src = "http://googleusercontent.com/spotify.com/7";
         b2.classList.add('active'); b1.classList.remove('active');
       }
     }
