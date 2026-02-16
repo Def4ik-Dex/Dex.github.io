@@ -1,67 +1,244 @@
-<div class="island-container">
-  <div id="island" class="dynamic-island" onclick="openIsland()">
-    <div class="island-minimized">
-      <span class="material-icons-round" style="color: #1DB954; font-size: 20px;">spotify</span>
-      <span style="font-size: 13px; font-weight: 800;">Spotify</span>
-    </div>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dex Bio - Classic Island</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg: #050505;
+      --card-bg: #141414;
+      --text-main: #ffffff;
+      --accent: #8e2de2;
+      --fanpay-color: #0077ff;
+      --tg-color: #33ccff;
+      --yt-color: #ff0000;
+    }
 
-    <div class="island-expanded">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span style="font-size: 10px; color: #1DB954; font-weight: 900; letter-spacing: 1px;">SPOTIFY PLAYER</span>
-        <span class="material-icons-round" onclick="closeIsland(event)" style="font-size: 18px; cursor: pointer; color: #666;">close</span>
-      </div>
-      
-      <div style="display: flex; gap: 6px; margin-bottom: 10px;">
-        <button class="track-mini-btn active" id="t1" onclick="switchSpotify('0VjIj97zuo7Y6Z9C9Sdw9T', 1, event)">Трек 1</button>
-        <button class="track-mini-btn" id="t2" onclick="switchSpotify('4S98698S76813687368', 2, event)">Альбом 2</button>
-      </div>
+    body.light {
+      --main-bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --text-main: #1d1d1f;
+    }
 
-      <div id="spotify-container" style="width: 100%; height: 80px; background: #000; border-radius: 12px; overflow: hidden;">
-        <iframe id="spotify-frame" 
-                src="https://open.spotify.com/embed/track/0VjIj97zuo7Y6Z9C9Sdw9T?utm_source=generator&theme=0" 
-                width="100%" 
-                height="80" 
-                frameBorder="0" 
-                allowfullscreen="" 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy">
-        </iframe>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--main-bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.4s;
+      min-height: 100vh;
+    }
+
+    /* --- CLASSIC DYNAMIC ISLAND --- */
+    .top-bar {
+      width: 100%;
+      max-width: 480px;
+      padding: 40px 20px 20px;
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
+    }
+
+    .island-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 35px;
+      z-index: 1000;
+    }
+
+    .dynamic-island {
+      background: #000;
+      color: white;
+      width: 140px;
+      height: 35px;
+      border-radius: 20px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #222;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .dynamic-island.active {
+      width: 280px;
+      height: 140px;
+      border-radius: 30px;
+    }
+
+    /* Закритий стан */
+    .island-min {
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Відкритий стан (Старий Дизайн) */
+    .island-full {
+      display: none;
+      padding: 15px;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dynamic-island.active .island-full { display: flex; }
+    .dynamic-island.active .island-min { display: none; }
+
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .album-art {
+      width: 35px;
+      height: 35px;
+      background: #fff;
+      border-radius: 8px;
+    }
+
+    .track-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .progress-fill {
+      width: 60%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .ctrl-icon {
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .ctrl-icon:hover { color: var(--accent); }
+
+    /* --- Кнопки зі світінням --- */
+    .btn-group { display: flex; gap: 10px; margin: 15px 0; }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--text-main);
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+    }
+
+    .btn-fanpay:active { box-shadow: 0 0 20px var(--fanpay-color); background: var(--fanpay-color); color: white; }
+    .btn-tg:active { box-shadow: 0 0 20px var(--tg-color); background: var(--tg-color); color: white; }
+    .btn-yt:active { box-shadow: 0 0 20px var(--yt-color); background: var(--yt-color); color: white; }
+    .btn-purple { background: var(--accent); color: white; border: none; }
+    .btn-purple:active { box-shadow: 0 0 20px var(--accent); }
+
+    .avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent); margin-top: 20px; }
+    .bio-box { background: var(--card-bg); padding: 20px; border-radius: 20px; margin: 20px; text-align: center; width: 300px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .divider { width: 90%; max-width: 400px; height: 3px; background: var(--accent); margin: 20px 0; border-radius: 5px; }
+
+    .shop-container { display: flex; gap: 15px; padding: 20px; width: 100%; max-width: 450px; }
+    .shop-card { background: var(--card-bg); flex: 1; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <button onclick="document.body.classList.toggle('light')" style="background:none; border:none; font-size: 20px; cursor:pointer; z-index:1100;">🌓</button>
+    
+    <div class="island-container">
+      <div id="island" class="dynamic-island" onclick="this.classList.toggle('active')">
+        <div class="island-min">
+          <span class="material-icons-round" style="font-size:16px; color:var(--accent);">music_note</span>
+          у батарей
+        </div>
+
+        <div class="island-full">
+          <div class="player-row">
+            <div class="album-art"></div>
+            <div class="track-name">у батарей</div>
+          </div>
+          
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+
+          <div class="controls">
+            <span class="material-icons-round ctrl-icon">skip_previous</span>
+            <span class="material-icons-round ctrl-icon">pause</span>
+            <span class="material-icons-round ctrl-icon">skip_next</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Оновлена функція перемикання Spotify
-  function switchSpotify(trackId, btnNum, e) {
-    e.stopPropagation();
-    const frame = document.getElementById('spotify-frame');
-    const b1 = document.getElementById('t1');
-    const b2 = document.getElementById('t2');
-    
-    // Оновлюємо src на правильний формат embed
-    frame.src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`;
-    
-    // Перемикаємо активні класи кнопок
-    if(btnNum === 1) {
-      b1.classList.add('active');
-      b2.classList.remove('active');
-    } else {
-      b2.classList.add('active');
-      b1.classList.add('active'); // Виправлено візуальний баг
-      b1.classList.remove('active');
-      b2.classList.add('active');
-    }
-  }
+  <img src="Dexav.png" alt="Avatar" class="avatar" />
 
-  // Додай це, щоб острів не глючив при відкритті
-  function openIsland() {
-    const island = document.getElementById('island');
-    if (!island.classList.contains('active')) {
-      island.classList.add('active');
-      // Невеликий хак для перемальовування iframe (фіксить порожній екран)
-      const frame = document.getElementById('spotify-frame');
-      frame.src = frame.src; 
-    }
-  }
-</script>
+  <div class="bio-box">
+    <h2 style="margin:0;">👋 привет, я DexIIs</h2>
+    <p style="color:gray; font-size:14px; margin:5px 0 0;">привет ето мое био!</p>
+  </div>
+
+  <div class="btn-group">
+    <a href="https://funpay.com/uk/users/13700115/" class="btn btn-fanpay">FanPay</a>
+    <a href="#" class="btn btn-tg">Telegram</a>
+    <a href="#" class="btn btn-yt">YouTube</a>
+  </div>
+  
+  <button class="btn btn-purple" style="width:140px;" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">market</button>
+
+  <div class="divider"></div>
+
+  <div id="shop" class="shop-container">
+    <div class="shop-card">
+      <div style="height:90px; background:url('shaders.png') center/cover;"></div>
+      <div style="padding:12px;">
+        <div style="font-size:13px; margin-bottom:10px; font-weight:bold;">шейдери</div>
+        <a href="files/shaders.zip" class="btn btn-purple" style="font-size:12px; padding:6px 15px; display:block;">скачати</a>
+      </div>
+    </div>
+    <div class="shop-card">
+      <div style="height:90px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; color:white;">⚙️</div>
+      <div style="padding:12px;">
+        <div style="font-size:13px; margin-bottom:10px; font-weight:bold;">настройки</div>
+        <a href="files/nast.zip" class="btn btn-purple" style="font-size:12px; padding:6px 15px; display:block;">скачати</a>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin: 20px; font-size: 11px; color: gray;">
+    © DexIIs 2025 | 👁 <span id="counter">37</span>
+  </footer>
+
+</body>
+</html>
