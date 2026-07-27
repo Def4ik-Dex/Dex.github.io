@@ -61,7 +61,7 @@ button{font-family:inherit; border:none; cursor:pointer;}
   z-index:0; pointer-events:none;
 }
 
-.tabs-info, .top-island, .subtitle-wrap, .floating-panel, .specs, .profile-chip-cluster{ position:absolute; z-index:2; }
+.tabs-info, .top-island, .subtitle-wrap, .floating-panel, .specs{ position:absolute; z-index:2; }
 
 /* top notch ("чолка"): flat top / rounded bottom, fit-content width, no outline */
 .top-island{
@@ -70,8 +70,6 @@ button{font-family:inherit; border:none; cursor:pointer;}
   transform:translateX(-50%);
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap: clamp(28px, 3.4vw, 56px);
   background: rgba(30,30,34,.32);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -79,12 +77,16 @@ button{font-family:inherit; border:none; cursor:pointer;}
   padding: clamp(10px,1.4vw,18px) clamp(24px,3vw,48px);
   white-space:nowrap;
 }
-.listening{ display:flex; align-items:center; gap:.6em; padding-right: clamp(10px,1.4vw,20px); }
+.listening{ display:flex; align-items:center; gap:.6em; flex:0 0 auto; }
 .listening img{ width:clamp(18px,2vw,28px); height:clamp(18px,2vw,28px); object-fit:contain; }
 .listening-text{ display:flex; flex-direction:column; line-height:1.2; }
 .listening-label{ font-size:clamp(10px,.8vw,13px); font-weight:600; opacity:.85; }
 .listening-track{ font-size:clamp(12px,1vw,16px); font-weight:800; text-decoration:underline; }
-.heading-wrap{ display:flex; flex-direction:column; align-items:center; }
+.heading-wrap{
+  display:flex; flex-direction:column; align-items:center;
+  flex:1 1 auto;
+  padding: 0 clamp(24px,3.4vw,56px);
+}
 .top-island h1{
   font-family:'Baloo 2', sans-serif;
   font-size: clamp(18px, 2.6vw, 38px);
@@ -98,11 +100,9 @@ button{font-family:inherit; border:none; cursor:pointer;}
   border-radius: clamp(6px,1.6vw,23px) clamp(6px,1.6vw,23px) 0 0;
 }
 
-/* profile chip cluster: vertically centered on the notch's own height */
+/* profile chip cluster: normal flex item on the right side of the notch row */
 .profile-chip-cluster{
-  top:50%;
-  right:14%;
-  transform:translateY(-50%);
+  flex:0 0 auto;
   display:flex;
   align-items:flex-end;
 }
