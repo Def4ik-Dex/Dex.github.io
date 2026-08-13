@@ -1,5 +1,5 @@
 :root{
-  --pill-white: rgba(255,255,255,.92);
+  --pill-white: #F5F6F1;
   --pill-white-border: rgba(0,0,0,.08);
   --pill-dark: #1b1b1b;
   --text-dark: #1b1b1b;
@@ -7,6 +7,7 @@
   --online: #33d17a;
   --glass-bg: rgba(20,22,26,.42);
   --glass-border: rgba(255,255,255,.14);
+  --active-item: #E8DFD1;
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -137,22 +138,25 @@ button{font-family:inherit; border:none; cursor:pointer;}
 .subtitle{ font-size:clamp(11px,1vw,15px); font-weight:700; color:rgba(255,255,255,.92); text-shadow:0 1px 6px rgba(0,0,0,.4); white-space:nowrap; }
 .subtitle span{ display:block; font-weight:600; opacity:.75; font-size:.85em; margin-top:2px; text-decoration:underline; text-underline-offset:3px; }
 
-/* ---------- floating panel (profile + channel merged) ---------- */
+/* ---------- floating panel (profile + channel), split into 2 sub-panels ---------- */
 .floating-panel{
   top:33%;
   left:33%;
-  width: clamp(220px, 24vw, 340px);
+  width: clamp(240px, 26vw, 360px);
+  display:flex;
+  flex-direction:column;
+  gap: clamp(4px,.7vw,9px);
+}
+.panel-titlebar{
+  align-self:flex-start;
+  width:88%;
+  display:flex; align-items:center; justify-content:space-between;
   background: var(--glass-bg);
   border:1px solid var(--glass-border);
   backdrop-filter: blur(10px);
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
-  overflow:hidden;
-}
-.panel-titlebar{
-  display:flex; align-items:center; justify-content:space-between;
+  border-radius:12px;
   padding: clamp(6px,.8vw,10px) clamp(10px,1.2vw,14px);
-  border-bottom:1px solid rgba(255,255,255,.12);
+  box-shadow:0 6px 16px rgba(0,0,0,.2);
 }
 .traffic-lights{ display:flex; gap:6px; }
 .tl{ width:clamp(8px,.8vw,11px); height:clamp(8px,.8vw,11px); border-radius:50%; }
@@ -162,20 +166,36 @@ button{font-family:inherit; border:none; cursor:pointer;}
 .panel-title{ font-size:clamp(10px,.85vw,13px); font-weight:700; color:rgba(255,255,255,.85); display:flex; align-items:center; gap:6px; }
 .close-x{ font-size:.85em; opacity:.5; }
 
+.panel-main{
+  background: var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  overflow:hidden;
+}
 .panel-body{
   display:flex;
   gap: clamp(10px,1.4vw,20px);
-  padding: clamp(10px,1.4vw,18px);
+  padding: 0 clamp(10px,1.4vw,18px) clamp(10px,1.4vw,18px) 0;
 }
 .panel-col{ display:flex; flex-direction:column; gap:.55em; }
-.panel-col-left{ width:38%; align-items:flex-start; }
-.panel-col-right{ width:62%; align-items:flex-start; }
+.panel-col-left{ width:38%; align-items:stretch; }
+.panel-col-right{ width:62%; align-items:flex-start; padding-top: clamp(10px,1.4vw,18px); }
 
-.avatar{ width:100%; aspect-ratio:1/1.1; object-fit:cover; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,.3); }
+.avatar{ display:block; width:100%; aspect-ratio:1/1.1; object-fit:cover; }
+.left-info{ display:flex; flex-direction:column; gap:.55em; padding-left: clamp(10px,1.4vw,18px); }
 .info-row{ display:flex; gap:.4em; }
 .label-pill{ padding-left: clamp(8px,1vw,14px); padding-right: clamp(8px,1vw,14px); }
 
-.channel-header{ display:flex; gap:.4em; }
+/* generic overlapping chip pair, same visual language as the pofile/DexIIs cluster on the notch */
+.overlap-cluster{ display:flex; align-items:flex-end; }
+.chip-overlap{
+  margin-left:-1.2em;
+  margin-bottom:-.9em;
+  box-shadow:0 3px 10px rgba(0,0,0,.25);
+}
+
 .dropdown{
   width:100%;
   background:var(--pill-white);
@@ -192,12 +212,11 @@ button{font-family:inherit; border:none; cursor:pointer;}
   font-weight:700; color:var(--text-dark);
   transition: background .15s ease;
 }
-.dropdown-item.active{ background:rgba(0,0,0,.08); }
+.dropdown-item.active{ background:var(--active-item); }
 .dropdown-item:hover{ background:rgba(0,0,0,.06); }
 .dropdown-item img{ height:1.1em; width:1.1em; object-fit:contain; }
-.channel-footer-row{ display:flex; gap:.4em; flex-wrap:wrap; }
+.contact-row{ align-self:flex-end; }
 .social-link img{ height:1em; width:1em; object-fit:contain; }
-.discord-link{ align-self:flex-start; }
 
 /* bottom-left specs */
 .specs{ left:1.5%; bottom:3%; display:flex; flex-direction:column; gap: clamp(5px,.6vw,8px); }
